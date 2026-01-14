@@ -1,0 +1,2425 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Research Projects - CAIRLab | Cybersecurity and AI Research</title>
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+
+    <!-- Favicon -->
+    <link href="img/favicon.ico" rel="icon" />
+
+    <!-- Google Web Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@300;700&family=Work+Sans:wght@400;600&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- Icon Font Stylesheet -->
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.0/css/all.min.css"
+      rel="stylesheet"
+    />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css"
+      rel="stylesheet"
+    />
+
+    <!-- AOS (Animate on Scroll) -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css"
+      rel="stylesheet"
+    />
+
+    <style>
+      :root {
+        --primary: #00957c;
+        --primary-dark: #007a63;
+        --secondary: #26a0a2;
+        --bg-primary: #ffffff;
+        --bg-secondary: #f8f9fa;
+        --text-primary: #333333;
+        --text-secondary: #666666;
+        --accent: #0056b3;
+      }
+
+      [data-theme="dark"] {
+        --bg-primary: #0a1929;
+        --bg-secondary: #091314;
+        --bg-tertiary: #132f4c;
+        --text-primary: #e3f2fd;
+        --text-secondary: #bbdefb;
+        --accent-color: #64ffda;
+        --header-bg: rgba(10, 25, 47, 0.95);
+        --card-bg: rgba(19, 47, 76, 0.8);
+        --shadow-color: rgba(0, 0, 0, 0.3);
+        --particle-color: rgba(100, 255, 218, 0.8);
+        --radar-color: #64ffda;
+      }
+
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: "Work Sans", sans-serif;
+        background-color: var(--bg-primary);
+        color: var(--text-primary);
+        transition: all 0.3s ease;
+        overflow-x: hidden;
+      }
+
+      h1,
+      h2,
+      h3,
+      h4,
+      h5,
+      h6 {
+        font-family: "Josefin Sans", sans-serif;
+        font-weight: 700;
+      }
+
+      /* Header & Navigation */
+      header {
+        background: transparent;
+        backdrop-filter: blur(10px);
+        box-shadow: 0 2px 10px var(--shadow-color);
+        padding: 1rem 0;
+        position: sticky;
+        top: 0;
+        z-index: 1000;
+        transition: background 0.5s ease, box-shadow 0.3s ease;
+      }
+
+      .navbar {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 1rem 0;
+      }
+
+      /* Advanced Back to Top Button with Progress */
+      .back-to-top {
+        position: fixed;
+        bottom: 30px;
+        right: 30px;
+        width: 50px;
+        height: 50px;
+        background: #e41779;
+        color: white;
+        border: none;
+        border-radius: 50%;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.2rem;
+        box-shadow: 0 4px 15px rgba(0, 149, 124, 0.3);
+        transition: all 0.3s ease;
+        opacity: 0;
+        visibility: hidden;
+        z-index: 999;
+        transform: translateY(20px);
+        overflow: hidden;
+      }
+
+      .back-to-top .progress-circle {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        transform: rotate(-90deg);
+      }
+
+      .back-to-top .progress-circle-background {
+        fill: none;
+        stroke: rgba(255, 255, 255, 0.2);
+        stroke-width: 2;
+      }
+
+      .back-to-top .progress-circle-fill {
+        fill: none;
+        stroke: red;
+        stroke-width: 6;
+        stroke-dasharray: 138.16; /* 2 * π * 22 */
+        stroke-dashoffset: 138.16;
+        transition: stroke-dashoffset 0.3s ease;
+      }
+
+      .back-to-top.visible {
+        opacity: 1;
+        visibility: visible;
+        transform: translateY(0);
+      }
+
+      .back-to-top:hover {
+        background: var(--primary-dark);
+        transform: translateY(-3px);
+        box-shadow: 0 6px 20px rgba(0, 149, 124, 0.4);
+      }
+
+      .back-to-top:hover .progress-circle-fill {
+        stroke: rgba(255, 255, 255, 0.8);
+      }
+
+      /* Responsive design for advanced version */
+      @media (max-width: 768px) {
+        .back-to-top {
+          bottom: 20px;
+          right: 20px;
+          width: 45px;
+          height: 45px;
+          font-size: 1.1rem;
+        }
+
+        .back-to-top .progress-circle {
+          width: 45px;
+          height: 45px;
+        }
+        .back-to-top .progress-circle-fill {
+          fill: none;
+          stroke: white;
+          stroke-width: 4;
+          stroke-dasharray: 138.16; /* 2 * π * 22 */
+          stroke-dashoffset: 138.16;
+          transition: stroke-dashoffset 0.3s ease;
+        }
+      }
+
+      .logo {
+        height: 50px;
+        font-size: 1.8rem;
+        font-weight: 700;
+        color: var(--accent-color);
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        transition: color 0.3s ease;
+      }
+
+      .logo-img {
+        height: 60px !important;
+        width: 60px !important;
+        transition: all 0.3s ease;
+      }
+
+      .logo-text {
+        font-size: 1.8rem;
+        font-weight: 700;
+        color: #26a0a2;
+      }
+
+      /* Mobile adjustments */
+      @media (max-width: 768px) {
+        .logo-img {
+          height: 35px;
+        }
+
+        .logo-text {
+          font-size: 1.5rem;
+        }
+      }
+
+      @media (max-width: 576px) {
+        .logo-img {
+          height: 30px;
+        }
+
+        .logo-text {
+          font-size: 1.3rem;
+        }
+      }
+
+      .nav-links {
+        display: flex;
+        list-style: none;
+        gap: 2rem;
+        align-items: center;
+        margin: 0;
+        overflow: visible !important;
+      }
+
+      .nav-links a {
+        text-decoration: none;
+        color: var(--text-primary);
+        font-weight: 600;
+        transition: color 0.3s ease;
+        position: relative;
+      }
+
+      .nav-links a.active {
+        color: #74075a !important;
+        font-weight: 700;
+        background-color: transparent;
+        padding: 5px;
+        border-radius: 5px;
+        border-bottom: 3px solid #199c95;
+        font-size: 1.3rem;
+      }
+
+      .nav-links a:hover {
+        color: var(--primary);
+      }
+
+      .nav-links a::after {
+        content: "";
+        position: absolute;
+        bottom: -5px;
+        left: 0;
+        width: 0;
+        height: 2px;
+        background: var(--primary);
+        transition: width 0.3s ease;
+      }
+
+      .nav-links a:hover::after {
+        width: 100%;
+      }
+      section {
+        overflow: hidden;
+      }
+
+      .btn-involved {
+        background: var(--primary);
+        color: white;
+        border: none;
+        padding: 0.5rem 1.5rem;
+        border-radius: 25px;
+        font-weight: 600;
+        transition: all 0.3s ease;
+        cursor: pointer;
+      }
+
+      .btn-involved:hover {
+        background: var(--primary-dark);
+        transform: translateY(-2px);
+        box-shadow: 0 5px 15px rgba(0, 149, 124, 0.3);
+      }
+
+      /* Projects Hero Section */
+      .projects-hero {
+        background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 149, 124, 0.4)),
+          url("https://plus.unsplash.com/premium_photo-1674582743901-7e438e0e5ea0?q=80&w=747&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D");
+        padding: 8rem 0 4rem;
+        position: relative;
+        overflow: hidden;
+        color: white;
+        background-attachment: fixed;
+        min-height: 60vh;
+        display: flex;
+        align-items: center;
+      }
+
+      .hero-content {
+        position: relative;
+        z-index: 2;
+        text-align: center;
+      }
+
+      .hero-badge {
+        display: inline-block;
+        background: rgba(255, 255, 255, 0.1);
+        color: white;
+        padding: 8px 20px;
+        border-radius: 25px;
+        font-size: 0.9rem;
+        font-weight: 600;
+        margin-bottom: 1.5rem;
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        backdrop-filter: blur(10px);
+      }
+
+      .hero-title {
+        font-size: 3.5rem;
+        font-weight: 700;
+        margin-bottom: 1.5rem;
+        background: linear-gradient(135deg, #ffffff 0%, #26a0a2 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+      }
+
+      .hero-subtitle {
+        font-size: 1.2rem;
+        color: rgba(255, 255, 255, 0.9);
+        max-width: 600px;
+        margin: 0 auto 2rem;
+        line-height: 1.6;
+      }
+
+      .floating-shape {
+        position: absolute;
+        border-radius: 50%;
+        background: rgba(0, 149, 124, 0.1);
+        animation: float 8s ease-in-out infinite;
+      }
+
+      .shape-1 {
+        width: 120px;
+        height: 120px;
+        top: 10%;
+        left: 5%;
+        animation-delay: 0s;
+      }
+
+      .shape-2 {
+        width: 80px;
+        height: 80px;
+        top: 60%;
+        right: 10%;
+        animation-delay: 2s;
+      }
+
+      .shape-3 {
+        width: 150px;
+        height: 150px;
+        bottom: 20%;
+        left: 15%;
+        animation-delay: 4s;
+      }
+
+      .network-grid {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-image: linear-gradient(
+            90deg,
+            transparent 99%,
+            rgba(0, 149, 124, 0.05) 99%
+          ),
+          linear-gradient(0deg, transparent 99%, rgba(0, 149, 124, 0.05) 99%);
+        background-size: 50px 50px;
+        animation: gridMove 20s linear infinite;
+      }
+
+      @keyframes float {
+        0%,
+        100% {
+          transform: translateY(0) rotate(0deg);
+        }
+        50% {
+          transform: translateY(-20px) rotate(180deg);
+        }
+      }
+
+      @keyframes gridMove {
+        0% {
+          background-position: 0 0;
+        }
+        100% {
+          background-position: 50px 50px;
+        }
+      }
+
+      .cosmic-toggle {
+        width: 70px !important; /* Reduced from 140px */
+        height: 35px !important; /* Reduced from 70px */
+        transform: scale(0.7); /* Scale everything down */
+        transform-origin: center;
+      }
+
+      .toggle {
+        opacity: 0;
+        width: 0;
+        height: 0;
+      }
+
+      .slider {
+        position: absolute;
+        cursor: pointer;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: linear-gradient(45deg, #1a1a2e, #16213e);
+        border-radius: 35px;
+        transition: 0.5s;
+        transform-style: preserve-3d;
+        box-shadow: 0 0 20px rgba(0, 0, 0, 0.5),
+          inset 0 0 15px rgba(255, 255, 255, 0.05);
+        overflow: hidden;
+      }
+
+      .cosmos {
+        position: absolute;
+        inset: 0;
+        background: radial-gradient(1px 1px at 10% 10%, #fff 100%, transparent),
+          radial-gradient(1px 1px at 20% 20%, #fff 100%, transparent),
+          radial-gradient(2px 2px at 30% 30%, #fff 100%, transparent),
+          radial-gradient(1px 1px at 40% 40%, #fff 100%, transparent),
+          radial-gradient(2px 2px at 50% 50%, #fff 100%, transparent),
+          radial-gradient(1px 1px at 60% 60%, #fff 100%, transparent),
+          radial-gradient(2px 2px at 70% 70%, #fff 100%, transparent),
+          radial-gradient(1px 1px at 80% 80%, #fff 100%, transparent),
+          radial-gradient(1px 1px at 90% 90%, #fff 100%, transparent);
+        background-size: 200% 200%;
+        opacity: 0.1;
+        transition: 0.5s;
+      }
+
+      .toggle-orb {
+        height: 31px !important; /* Reduced from 62px */
+        width: 31px !important; /* Reduced from 62px */
+        left: 2px !important; /* Reduced from 4px */
+        bottom: 2px !important;
+        bottom: 4px;
+        background: linear-gradient(145deg, #ff6b6b, #4ecdc4);
+        border-radius: 50%;
+        transition: 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+        transform-style: preserve-3d;
+        z-index: 2;
+      }
+
+      .inner-orb {
+        position: absolute;
+        inset: 5px;
+        border-radius: 50%;
+        background: linear-gradient(145deg, #fff, #e6e6e6);
+        transition: 0.5s;
+        overflow: hidden;
+      }
+
+      .inner-orb::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background: repeating-conic-gradient(
+          from 0deg,
+          transparent 0deg,
+          rgba(0, 0, 0, 0.1) 10deg,
+          transparent 20deg
+        );
+        animation: patternRotate 10s linear infinite;
+      }
+
+      .ring {
+        position: absolute;
+        inset: -3px;
+        border: 2px solid rgba(255, 255, 255, 0.1);
+        border-radius: 50%;
+        transition: 0.5s;
+      }
+
+      .toggle:checked + .slider {
+        background: linear-gradient(45deg, #16213e, #1a1a2e);
+      }
+
+      .toggle:checked + .slider .toggle-orb {
+        transform: translateX(35px) rotate(360deg);
+        background: linear-gradient(145deg, #4ecdc4, #45b7af);
+      }
+
+      .toggle:checked + .slider .inner-orb {
+        background: linear-gradient(145deg, #45b7af, #3da89f);
+        transform: scale(0.9);
+      }
+
+      .toggle:checked + .slider .ring {
+        border-color: rgba(78, 205, 196, 0.3);
+        animation: ringPulse 2s infinite;
+      }
+
+      .energy-line {
+        position: absolute;
+        width: 100%;
+        height: 2px;
+        background: linear-gradient(
+          90deg,
+          transparent,
+          rgba(78, 205, 196, 0.5),
+          transparent
+        );
+        transform-origin: left;
+        opacity: 0;
+        transition: 0.5s;
+      }
+
+      .energy-line:nth-child(1) {
+        top: 20%;
+        transform: rotate(15deg);
+      }
+      .energy-line:nth-child(2) {
+        top: 50%;
+        transform: rotate(0deg);
+      }
+      .energy-line:nth-child(3) {
+        top: 80%;
+        transform: rotate(-15deg);
+      }
+
+      .toggle:checked + .slider .energy-line {
+        opacity: 1;
+        animation: energyFlow 2s linear infinite;
+      }
+
+      .particles {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+      }
+
+      .particle {
+        position: absolute;
+        width: 2px;
+        height: 2px;
+        background: #4ecdc4;
+        border-radius: 50%;
+        opacity: 0;
+      }
+
+      .toggle:checked + .slider .particle {
+        animation: particleBurst 1s ease-out infinite;
+      }
+
+      .particle:nth-child(1) {
+        left: 20%;
+        animation-delay: 0s;
+      }
+      .particle:nth-child(2) {
+        left: 40%;
+        animation-delay: 0.2s;
+      }
+      .particle:nth-child(3) {
+        left: 60%;
+        animation-delay: 0.4s;
+      }
+      .particle:nth-child(4) {
+        left: 80%;
+        animation-delay: 0.6s;
+      }
+      .particle:nth-child(5) {
+        left: 30%;
+        animation-delay: 0.8s;
+      }
+      .particle:nth-child(6) {
+        left: 70%;
+        animation-delay: 1s;
+      }
+
+      /* Анимации */
+      @keyframes ringPulse {
+        0%,
+        100% {
+          transform: scale(1);
+          opacity: 0.3;
+        }
+        50% {
+          transform: scale(1.1);
+          opacity: 0.6;
+        }
+      }
+
+      @keyframes patternRotate {
+        0% {
+          transform: rotate(0deg);
+        }
+        100% {
+          transform: rotate(360deg);
+        }
+      }
+
+      @keyframes energyFlow {
+        0% {
+          transform: scaleX(0) translateX(0);
+          opacity: 0;
+        }
+        50% {
+          transform: scaleX(1) translateX(50%);
+          opacity: 1;
+        }
+        100% {
+          transform: scaleX(0) translateX(100%);
+          opacity: 0;
+        }
+      }
+
+      @keyframes particleBurst {
+        0% {
+          transform: translate(0, 0) scale(1);
+          opacity: 1;
+        }
+        100% {
+          transform: translate(
+              calc(cos(var(--angle)) * 50px),
+              calc(sin(var(--angle)) * 50px)
+            )
+            scale(0);
+          opacity: 0;
+        }
+      }
+
+      /* Hover эффекты */
+      .slider:hover .toggle-orb {
+        filter: brightness(1.2);
+        box-shadow: 0 0 20px rgba(78, 205, 196, 0.5),
+          0 0 40px rgba(78, 205, 196, 0.3);
+      }
+
+      .slider:hover .cosmos {
+        opacity: 0.2;
+        animation: cosmosPan 20s linear infinite;
+      }
+
+      @keyframes cosmosPan {
+        0% {
+          background-position: 0% 0%;
+        }
+        100% {
+          background-position: 200% 200%;
+        }
+      }
+
+      /* Активное состояние */
+      .toggle:active + .slider .toggle-orb {
+        transform: scale(0.95);
+      }
+
+      /* 3D эффект при наведении */
+      .cosmic-toggle:hover .slider {
+        transform: rotateX(10deg) rotateY(10deg);
+      }
+
+      .cosmic-toggle:hover .toggle-orb {
+        transform: translateZ(10px);
+      }
+
+      /* Тень */
+      .toggle:checked + .slider::after {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background: radial-gradient(
+          circle at var(--x) var(--y),
+          rgba(78, 205, 196, 0.2),
+          transparent 50%
+        );
+        opacity: 0;
+        animation: glowFollow 2s linear infinite;
+      }
+
+      @keyframes glowFollow {
+        0%,
+        100% {
+          opacity: 0.2;
+        }
+        50% {
+          opacity: 0.5;
+        }
+      }
+
+      /* Thematic Areas Navigation */
+      .thematic-nav {
+        background: var(--bg-secondary);
+        padding: 2rem 0;
+        top: 70px;
+        z-index: 999;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+      }
+
+      .thematic-filters {
+        display: flex;
+        justify-content: center;
+        flex-wrap: wrap;
+        gap: 1rem;
+      }
+
+      .thematic-filter {
+        background: var(--bg-primary);
+        border: 2px solid rgba(0, 149, 124, 0.2);
+        color: var(--text-primary);
+        padding: 0.75rem 1.5rem;
+        border-radius: 25px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        text-decoration: none;
+      }
+
+      .thematic-filter:hover,
+      .thematic-filter.active {
+        background: var(--primary);
+        color: white;
+        border-color: var(--primary);
+        transform: translateY(-2px);
+        box-shadow: 0 5px 15px rgba(0, 149, 124, 0.3);
+      }
+
+      /* Projects Grid */
+      .projects-section {
+        padding: 6rem 0;
+        background: var(--bg-primary);
+      }
+
+      .thematic-section {
+        margin-bottom: 6rem;
+      }
+
+      .section-header {
+        text-align: center;
+        margin-bottom: 4rem;
+      }
+
+      .section-badge {
+        display: inline-block;
+        background: rgba(149, 0, 0, 0.12);
+        color: var(--primary);
+        padding: 8px 20px;
+        border-radius: 20px;
+        font-size: 0.9rem;
+        font-weight: 600;
+        margin-bottom: 1rem;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+      }
+
+      .section-title {
+        font-size: 2.5rem;
+        margin-bottom: 1rem;
+        color: var(--text-primary);
+      }
+
+      .section-description {
+        font-size: 1.1rem;
+        color: var(--text-secondary);
+        max-width: 600px;
+        margin: 0 auto;
+        line-height: 1.6;
+      }
+
+      /* Project Cards */
+      .project-card {
+        background: var(--bg-primary);
+        border-radius: 20px;
+        overflow: hidden;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        transition: all 0.3s ease;
+        border: 1px solid rgba(0, 149, 124, 0.1);
+        height: 100%;
+        margin-bottom: 2rem;
+      }
+
+      .project-card:hover {
+        transform: translateY(-10px);
+        box-shadow: 0 20px 40px rgba(0, 149, 124, 0.15);
+      }
+
+      .project-image {
+        height: 200px;
+        overflow: hidden;
+        position: relative;
+      }
+
+      .project-image img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transition: transform 0.3s ease;
+      }
+
+      .project-card:hover .project-image img {
+        transform: scale(1.1);
+      }
+
+      .project-status {
+        position: absolute;
+        top: 1rem;
+        right: 1rem;
+        padding: 0.4rem 1rem;
+        border-radius: 15px;
+        font-size: 0.8rem;
+        font-weight: 600;
+        text-transform: uppercase;
+      }
+
+      .status-active {
+        background: rgba(40, 167, 69, 0.9);
+        color: white;
+      }
+
+      .status-upcoming {
+        background: rgba(255, 193, 7, 0.9);
+        color: black;
+      }
+
+      .status-completed {
+        background: rgba(108, 117, 125, 0.9);
+        color: white;
+      }
+
+      .project-content {
+        padding: 2rem;
+      }
+
+      .project-category {
+        color: var(--primary);
+        font-size: 0.9rem;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        margin-bottom: 0.5rem;
+        display: block;
+      }
+
+      .project-title {
+        font-size: 1.5rem;
+        margin-bottom: 1rem;
+        color: var(--text-primary);
+      }
+
+      .project-description {
+        color: var(--text-secondary);
+        margin-bottom: 1.5rem;
+        line-height: 1.6;
+      }
+
+      .project-meta {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 1.5rem;
+        padding-top: 1rem;
+        border-top: 1px solid rgba(0, 149, 124, 0.1);
+      }
+
+      .project-team {
+        font-size: 0.9rem;
+        color: var(--text-secondary);
+      }
+
+      .project-timeline {
+        font-size: 0.9rem;
+        color: var(--text-secondary);
+        font-weight: 600;
+      }
+
+      .project-tech {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.5rem;
+        margin-bottom: 1.5rem;
+      }
+
+      .tech-tag {
+        background: rgba(0, 149, 124, 0.1);
+        color: var(--primary);
+        padding: 0.3rem 0.8rem;
+        border-radius: 15px;
+        font-size: 0.8rem;
+        font-weight: 600;
+      }
+
+      .project-actions {
+        display: flex;
+        gap: 1rem;
+      }
+
+      .btn-project {
+        padding: 0.6rem 1.5rem;
+        border-radius: 20px;
+        font-weight: 600;
+        text-decoration: none;
+        transition: all 0.3s ease;
+        font-size: 0.9rem;
+      }
+
+      .btn-primary {
+        background: var(--primary);
+        color: white;
+        border: none;
+      }
+
+      .btn-primary:hover {
+        background: var(--primary-dark);
+        transform: translateY(-2px);
+        box-shadow: 0 5px 15px rgba(0, 149, 124, 0.3);
+      }
+
+      .btn-outline {
+        background: transparent;
+        color: var(--primary);
+        border: 2px solid var(--primary);
+      }
+
+      .btn-outline:hover {
+        background: var(--primary);
+        color: white;
+        transform: translateY(-2px);
+      }
+
+      /* CTA Section */
+      .cta-section {
+        padding: 6rem 0;
+        background: linear-gradient(
+          135deg,
+          var(--primary) 0%,
+          var(--secondary) 100%
+        );
+        color: white;
+        text-align: center;
+        position: relative;
+        overflow: hidden;
+      }
+
+      .cta-bg {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        opacity: 0.1;
+        background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grid" width="10" height="10" patternUnits="userSpaceOnUse"><path d="M 10 0 L 0 0 0 10" fill="none" stroke="white" stroke-width="0.5"/></pattern></defs><rect width="100" height="100" fill="url(%23grid)"/></svg>');
+      }
+
+      .cta-content {
+        position: relative;
+        z-index: 2;
+      }
+
+      .cta-title {
+        font-size: 2.5rem;
+        margin-bottom: 1rem;
+      }
+
+      .cta-text {
+        font-size: 1.2rem;
+        margin-bottom: 2rem;
+        opacity: 0.9;
+        max-width: 600px;
+        margin-left: auto;
+        margin-right: auto;
+      }
+
+      .btn-cta {
+        background: white;
+        color: var(--primary);
+        border: none;
+        padding: 0.8rem 2.5rem;
+        border-radius: 30px;
+        font-weight: 600;
+        font-size: 1.1rem;
+        transition: all 0.3s ease;
+        text-decoration: none;
+        display: inline-block;
+      }
+
+      .btn-cta:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+        color: var(--primary-dark);
+      }
+
+      /* Footer */
+      .footer {
+        background: var(--bg-secondary);
+        padding: 4rem 0 2rem;
+        color: var(--text-primary);
+      }
+
+      .nav-controls {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+      }
+
+      .mobile-nav-toggle {
+        display: none;
+        flex-direction: column;
+        background: none;
+        border: none;
+        cursor: pointer;
+        padding: 5px;
+      }
+
+      .mobile-nav-toggle span {
+        width: 25px;
+        height: 3px;
+        background: var(--text-primary);
+        margin: 3px 0;
+        transition: 0.3s;
+        border-radius: 2px;
+      }
+
+      /* Mobile Responsive Styles */
+      @media (max-width: 768px) {
+        .nav-links {
+          display: none;
+          position: absolute;
+          top: 100%;
+          left: 0;
+          width: 100%;
+          background: var(--bg-primary);
+          flex-direction: column;
+          padding: 1rem 0;
+          box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .nav-links.active {
+          display: flex;
+          color: var(--text-primary);
+        }
+
+        .mobile-nav-toggle {
+          display: flex;
+        }
+
+        .mobile-nav-toggle.active span:nth-child(1) {
+          transform: rotate(45deg) translate(5px, 5px);
+        }
+
+        .mobile-nav-toggle.active span:nth-child(2) {
+          opacity: 0;
+        }
+
+        .mobile-nav-toggle.active span:nth-child(3) {
+          transform: rotate(-45deg) translate(7px, -6px);
+        }
+
+        .hero-title {
+          font-size: 2.5rem;
+        }
+      }
+      /* Responsive Design */
+      @media (max-width: 768px) {
+        .hero-title {
+          font-size: 2.5rem;
+        }
+
+        .thematic-filters {
+          gap: 0.5rem;
+        }
+
+        .thematic-filter {
+          padding: 0.6rem 1.2rem;
+          font-size: 0.9rem;
+        }
+
+        .project-actions {
+          flex-direction: column;
+        }
+
+        .btn-project {
+          text-align: center;
+        }
+      }
+
+      /* Dark theme adjustments */
+      [data-theme="dark"] .project-card,
+      [data-theme="dark"] .thematic-filter {
+        background: var(--bg-secondary);
+        border-color: rgba(255, 255, 255, 0.1);
+      }
+
+      /*** Footer ***/
+      @keyframes footerAnimatedBg {
+        0% {
+          background-position: 0 0;
+        }
+
+        100% {
+          background-position: -1000px 0;
+        }
+      }
+
+      .footer {
+        background-image: url(https://demo.htmlcodex.com/2716/laboratory-html-website-template/img/footer.png);
+        background-position: 0px 0px;
+        background-repeat: repeat-x;
+        animation: footerAnimatedBg 50s linear infinite;
+        background-color: #0e1b20 !important;
+      }
+
+      .footer-links a:hover {
+        color: white !important;
+        transform: scale(0.95);
+      }
+    </style>
+  </head>
+  <body data-theme="light">
+    <header>
+      <div class="container">
+        <nav class="navbar">
+          <div class="logo">
+            <img
+              src="https://www.brianknows.org/brian_logo.png"
+              alt="CAIRLab Logo"
+              class="logo-img"
+            />
+            <span class="logo-text">CAIRLab</span>
+          </div>
+
+          <ul class="nav-links ms-auto" id="navLinks">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="About.html">About</a></li>
+            <li><a href="Themes.html">Themes</a></li>
+            <li><a href="Projects.html">Projects</a></li>
+            <li><a href="Contact.html">Contact</a></li>
+            <li><a href="Scholarships.html">Apply For Scholarship</a></li>
+            <li>
+              <button
+                class="btn-involved"
+                onclick="window.location.href='Contact.html'"
+              >
+                Get Involved
+              </button>
+            </li>
+          </ul>
+          <div class="nav-controls">
+            <button
+              class="mobile-nav-toggle"
+              id="mobileNavToggle"
+              aria-label="Toggle Navigation"
+            >
+              <span></span>
+              <span></span>
+              <span></span>
+            </button>
+
+            <label class="cosmic-toggle">
+              <input class="toggle" type="checkbox" />
+              <div class="slider">
+                <div class="cosmos"></div>
+                <div class="energy-line"></div>
+                <div class="energy-line"></div>
+                <div class="energy-line"></div>
+                <div class="toggle-orb">
+                  <div class="inner-orb"></div>
+                  <div class="ring"></div>
+                </div>
+                <div class="particles">
+                  <div style="--angle: 30deg" class="particle"></div>
+                  <div style="--angle: 60deg" class="particle"></div>
+                  <div style="--angle: 90deg" class="particle"></div>
+                  <div style="--angle: 120deg" class="particle"></div>
+                  <div style="--angle: 150deg" class="particle"></div>
+                  <div style="--angle: 180deg" class="particle"></div>
+                </div>
+              </div>
+            </label>
+          </div>
+        </nav>
+      </div>
+    </header>
+
+    <!-- Projects Hero Section -->
+    <section class="projects-hero">
+      <div class="container">
+        <div class="hero-content">
+          <div class="hero-badge" data-aos="fade-up" data-aos-delay="100">
+            Discover
+          </div>
+          <h1 class="hero-title" data-aos="fade-up" data-aos-delay="200">
+            THEMATIC RESEARCH AREAS
+          </h1>
+          <p class="hero-subtitle" data-aos="fade-up" data-aos-delay="300">
+            Explore our innovative researchs across five thematic areas, pushing
+            the boundaries of AI and cybersecurity.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Thematic Areas Navigation -->
+    <section class="thematic-nav">
+      <div class="container">
+        <div class="thematic-filters">
+          <a href="#trustworthy-ai" class="thematic-filter active"
+            >Trustworthy & Secure AI</a
+          >
+          <a href="#cyber-defense" class="thematic-filter"
+            >AI-Driven Cyber Defense</a
+          >
+          <a href="#critical-infrastructure" class="thematic-filter"
+            >Critical Infrastructure Security</a
+          >
+          <a href="#emerging-frontiers" class="thematic-filter"
+            >Emerging Frontiers</a
+          >
+          <a href="#responsible-ai" class="thematic-filter">Responsible AI</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- Projects Grid Section -->
+    <section class="projects-section">
+      <div class="container">
+        <!-- Trustworthy & Secure AI -->
+        <div id="trustworthy-ai" class="thematic-section">
+          <div class="section-header" data-aos="fade-up">
+            <span class="section-badge" id="thematic-area-1"
+              >Thematic Area 1</span
+            >
+            <h2 class="section-title">Trustworthy & Secure AI</h2>
+            <p class="section-description">
+              Developing robust, secure, and trustworthy AI systems that can
+              withstand sophisticated attacks while maintaining performance and
+              reliability.
+            </p>
+          </div>
+
+          <div class="row g-4">
+            <!-- SecureAI Project -->
+            <div
+              class="col-lg-4 col-md-6"
+              data-aos="fade-up"
+              data-aos-delay="100"
+            >
+              <div class="project-card">
+                <div class="project-image">
+                  <img
+                    src="https://images.unsplash.com/photo-1555949963-ff9fe0c870eb?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80"
+                    alt="SecureAI"
+                  />
+                  <span class="project-status status-active">Active</span>
+                </div>
+                <div class="project-content">
+                  <span class="project-category">SecureAI (Project)</span>
+                  <h3 class="project-title">SecureAI Framework</h3>
+                  <p class="project-description">
+                    Comprehensive framework for building and deploying secure AI
+                    systems with built-in protection against adversarial attacks
+                    and data poisoning.
+                  </p>
+                  <div class="project-tech">
+                    <span class="tech-tag">Adversarial ML</span>
+                    <span class="tech-tag">Model Verification</span>
+                    <span class="tech-tag">Secure Training</span>
+                  </div>
+                  <div class="project-meta">
+                    <span class="project-team">Dr. Emmmanuel Ahene</span>
+                    <span class="project-timeline">2023-2025</span>
+                  </div>
+                  <div class="project-actions">
+                    <a
+                      href="projects/secureai-framework.html"
+                      class="btn-project btn-primary"
+                      >View Details</a
+                    >
+                    <a href="#" class="btn-project btn-outline">Publications</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Adversarial Defense -->
+            <div
+              class="col-lg-4 col-md-6"
+              data-aos="fade-up"
+              data-aos-delay="200"
+            >
+              <div class="project-card">
+                <div class="project-image">
+                  <img
+                    src="https://images.unsplash.com/photo-1555255707-c07966088b7b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80"
+                    alt="Adversarial Defense"
+                  />
+                  <span class="project-status status-upcoming">Upcoming</span>
+                </div>
+                <div class="project-content">
+                  <span class="project-category"
+                    >Advanced Defense (Project)</span
+                  >
+                  <h3 class="project-title">Adversarial ML Defense System</h3>
+                  <p class="project-description">
+                    Developing state-of-the-art defense mechanisms against
+                    adversarial attacks on deep learning models in critical
+                    applications.
+                  </p>
+                  <div class="project-tech">
+                    <span class="tech-tag">Deep Learning</span>
+                    <span class="tech-tag">Security</span>
+                    <span class="tech-tag">Robust AI</span>
+                  </div>
+                  <div class="project-meta">
+                    <span class="project-team">Dr. Emmmanuel Ahene</span>
+                    <span class="project-timeline">2023-2024</span>
+                  </div>
+                  <div class="project-actions">
+                    <a href="projects/adversarial-ml-defense-system.html" class="btn-project btn-primary">View Details</a>
+                    <a href="#" class="btn-project btn-outline">Publications</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Federated Learning Security -->
+            <div
+              class="col-lg-4 col-md-6"
+              data-aos="fade-up"
+              data-aos-delay="300"
+            >
+              <div class="project-card">
+                <div class="project-image">
+                  <img
+                    src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80"
+                    alt="Federated Learning"
+                  />
+                  <span class="project-status status-upcoming">Upcoming</span>
+                </div>
+                <div class="project-content">
+                  <span class="project-category"
+                    >Privacy & Security (Project)</span
+                  >
+                  <h3 class="project-title">Secure Federated Learning</h3>
+                  <p class="project-description">
+                    Privacy-preserving distributed learning framework with
+                    formal security guarantees and protection against inference
+                    attacks.
+                  </p>
+                  <div class="project-tech">
+                    <span class="tech-tag">Federated Learning</span>
+                    <span class="tech-tag">Differential Privacy</span>
+                    <span class="tech-tag">Secure Aggregation</span>
+                  </div>
+                  <div class="project-meta">
+                    <span class="project-team">Dr. Emmmanuel Ahene</span>
+                    <span class="project-timeline">2024-2026</span>
+                  </div>
+                  <div class="project-actions">
+                    <a
+                      href="projects/secure-federated-learning.html"
+                      class="btn-project btn-primary"
+                      >View Details</a
+                    >
+                    <a href="#" class="btn-project btn-outline">Publications</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- AI-Driven Cyber Defense & Threat Intelligence -->
+        <div id="cyber-defense" class="thematic-section">
+          <div class="section-header" data-aos="fade-up">
+            <span class="section-badge" id="thematic-area-2"
+              >Thematic Area 2</span
+            >
+            <h2 class="section-title">
+              AI-Driven Cyber Defense & Threat Intelligence
+            </h2>
+            <p class="section-description">
+              Leveraging artificial intelligence for advanced threat detection,
+              analysis, and automated cyber defense systems.
+            </p>
+          </div>
+
+          <div class="row g-4">
+            <!-- Threat Detection -->
+            <div
+              class="col-lg-4 col-md-6"
+              data-aos="fade-up"
+              data-aos-delay="100"
+            >
+              <div class="project-card">
+                <div class="project-image">
+                  <img
+                    src="https://images.unsplash.com/photo-1563013544-824ae1b704d3?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80"
+                    alt="Threat Detection"
+                  />
+                  <span class="project-status status-upcoming">Upcoming</span>
+                </div>
+                <div class="project-content">
+                  <span class="project-category"
+                    >Threat Intelligence (Project)</span
+                  >
+                  <h3 class="project-title">Real-time Threat Detection AI</h3>
+                  <p class="project-description">
+                    AI-powered system for real-time detection and analysis of
+                    cyber threats using advanced machine learning and behavioral
+                    analysis.
+                  </p>
+                  <div class="project-tech">
+                    <span class="tech-tag">Machine Learning</span>
+                    <span class="tech-tag">Behavior Analysis</span>
+                    <span class="tech-tag">Real-time Processing</span>
+                  </div>
+                  <div class="project-meta">
+                    <span class="project-team">Dr. Emmmanuel Ahene</span>
+                    <span class="project-timeline">2023-2024</span>
+                  </div>
+                  <div class="project-actions">
+                    <a href="projects/real-time-threat-detection-ai.html" class="btn-project btn-primary">View Details</a>
+                    <a href="#" class="btn-project btn-outline">Publications</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Malware Analysis -->
+            <div
+              class="col-lg-4 col-md-6"
+              data-aos="fade-up"
+              data-aos-delay="200"
+            >
+              <div class="project-card">
+                <div class="project-image">
+                  <img
+                    src="https://images.unsplash.com/photo-1544197150-b99a580bb7a8?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80"
+                    alt="Malware Analysis"
+                  />
+                  <span class="project-status status-upcoming">Upcoming</span>
+                </div>
+                <div class="project-content">
+                  <span class="project-category"
+                    >Malware Research (Project)</span
+                  >
+                  <h3 class="project-title">AI-Powered Malware Analysis</h3>
+                  <p class="project-description">
+                    Automated malware classification and analysis system using
+                    deep learning for rapid identification and characterization
+                    of threats.
+                  </p>
+                  <div class="project-tech">
+                    <span class="tech-tag">Deep Learning</span>
+                    <span class="tech-tag">Malware Analysis</span>
+                    <span class="tech-tag">Automation</span>
+                  </div>
+                  <div class="project-meta">
+                    <span class="project-team">Dr. Emmmanuel Ahene</span>
+                    <span class="project-timeline">2023-2025</span>
+                  </div>
+                  <div class="project-actions">
+                    <a href="projects/ai-powered-malware-analysis.html" class="btn-project btn-primary">View Details</a>
+                    <a href="#" class="btn-project btn-outline">Publications</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Network Security -->
+            <div
+              class="col-lg-4 col-md-6"
+              data-aos="fade-up"
+              data-aos-delay="300"
+            >
+              <div class="project-card">
+                <div class="project-image">
+                  <img
+                    src="https://images.unsplash.com/photo-1558494949-ef010cbdcc31?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80"
+                    alt="Network Security"
+                  />
+                  <span class="project-status status-upcoming">Upcoming</span>
+                </div>
+                <div class="project-content">
+                  <span class="project-category"
+                    >Network Security (Project)</span
+                  >
+                  <h3 class="project-title">Network Anomaly Detection</h3>
+                  <p class="project-description">
+                    Advanced anomaly detection system for network traffic using
+                    unsupervised learning and real-time monitoring capabilities.
+                  </p>
+                  <div class="project-tech">
+                    <span class="tech-tag">Unsupervised Learning</span>
+                    <span class="tech-tag">Network Analysis</span>
+                    <span class="tech-tag">Real-time Monitoring</span>
+                  </div>
+                  <div class="project-meta">
+                    <span class="project-team">Dr. Emmmanuel Ahene</span>
+                    <span class="project-timeline">2022-2023</span>
+                  </div>
+                  <div class="project-actions">
+                    <a href="projects/network-anomaly-detection.html" class="btn-project btn-primary">View Details</a>
+                    <a href="#" class="btn-project btn-outline">Publications</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Privacy & Security in Critical Infrastructures -->
+        <div id="critical-infrastructure" class="thematic-section">
+          <div class="section-header" data-aos="fade-up">
+            <span class="section-badge" id="thematic-area-3"
+              >Thematic Area 3</span
+            >
+            <h2 class="section-title">
+              Privacy & Security in Critical Infrastructures
+            </h2>
+            <p class="section-description">
+              Securing critical infrastructure systems including IoT, 5G
+              networks, healthcare systems, and energy grids against emerging
+              threats.
+            </p>
+          </div>
+
+          <div class="row g-4">
+            <!-- IoT Security -->
+            <div
+              class="col-lg-4 col-md-6"
+              data-aos="fade-up"
+              data-aos-delay="100"
+            >
+              <div class="project-card">
+                <div class="project-image">
+                  <img
+                    src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80"
+                    alt="IoT Security"
+                  />
+                  <span class="project-status status-upcoming">Upcoming</span>
+                </div>
+                <div class="project-content">
+                  <span class="project-category">IoT Security</span>
+                  <h3 class="project-title">IoT Security Framework</h3>
+                  <p class="project-description">
+                    Comprehensive security framework for IoT ecosystems with
+                    device authentication, secure communication, and threat
+                    detection.
+                  </p>
+                  <div class="project-tech">
+                    <span class="tech-tag">IoT Security</span>
+                    <span class="tech-tag">Device Authentication</span>
+                    <span class="tech-tag">Secure Communication</span>
+                  </div>
+                  <div class="project-meta">
+                    <span class="project-team">IoT Security Team</span>
+                    <span class="project-timeline">2023-2025</span>
+                  </div>
+                  <div class="project-actions">
+                    <a href="projects/iot-security-framework.html" class="btn-project btn-primary">View Details</a>
+                    <a href="#" class="btn-project btn-outline">Publications</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- 5G Security -->
+            <div
+              class="col-lg-4 col-md-6"
+              data-aos="fade-up"
+              data-aos-delay="200"
+            >
+              <div class="project-card">
+                <div class="project-image">
+                  <img
+                    src="https://images.unsplash.com/photo-1518709268805-4e9042af2176?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80"
+                    alt="5G Security"
+                  />
+                  <span class="project-status status-upcoming">Upcoming</span>
+                </div>
+                <div class="project-content">
+                  <span class="project-category">5G Networks</span>
+                  <h3 class="project-title">5G Network Protection</h3>
+                  <p class="project-description">
+                    Security solutions for 5G network infrastructure focusing on
+                    network slicing security, edge computing protection, and
+                    threat mitigation.
+                  </p>
+                  <div class="project-tech">
+                    <span class="tech-tag">5G Security</span>
+                    <span class="tech-tag">Network Slicing</span>
+                    <span class="tech-tag">Edge Computing</span>
+                  </div>
+                  <div class="project-meta">
+                    <span class="project-team">Network Security Team</span>
+                    <span class="project-timeline">2023-2024</span>
+                  </div>
+                  <div class="project-actions">
+                    <a href="projects/5g-network-protection.html" class="btn-project btn-primary">View Details</a>
+                    <a href="#" class="btn-project btn-outline">Publications</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Healthcare Security -->
+            <div
+              class="col-lg-4 col-md-6"
+              data-aos="fade-up"
+              data-aos-delay="300"
+            >
+              <div class="project-card">
+                <div class="project-image">
+                  <img
+                    src="https://images.unsplash.com/photo-1559757148-5c350d0d3c56?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80"
+                    alt="Healthcare Security"
+                  />
+                  <span class="project-status status-upcoming">Upcoming</span>
+                </div>
+                <div class="project-content">
+                  <span class="project-category">Healthcare</span>
+                  <h3 class="project-title">Healthcare Data Privacy</h3>
+                  <p class="project-description">
+                    Privacy-preserving techniques for healthcare data including
+                    differential privacy, homomorphic encryption, and secure
+                    data sharing.
+                  </p>
+                  <div class="project-tech">
+                    <span class="tech-tag">Differential Privacy</span>
+                    <span class="tech-tag">Homomorphic Encryption</span>
+                    <span class="tech-tag">Healthcare Security</span>
+                  </div>
+                  <div class="project-meta">
+                    <span class="project-team">Dr. Emmanuel Ahene</span>
+                    <span class="project-timeline">2023-2025</span>
+                  </div>
+                  <div class="project-actions">
+                    <a href="projects/healthcare-data-privacy.html" class="btn-project btn-primary">View Details</a>
+                    <a href="#" class="btn-project btn-outline">Publications</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Energy Grid Security -->
+            <div
+              class="col-lg-4 col-md-6"
+              data-aos="fade-up"
+              data-aos-delay="400"
+            >
+              <div class="project-card">
+                <div class="project-image">
+                  <img
+                    src="https://images.unsplash.com/photo-1473341304170-971dccb5ac1e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80"
+                    alt="Energy Security"
+                  />
+                  <span class="project-status status-upcoming">Upcoming</span>
+                </div>
+                <div class="project-content">
+                  <span class="project-category">Energy Infrastructure</span>
+                  <h3 class="project-title">Smart Grid Security</h3>
+                  <p class="project-description">
+                    Cybersecurity framework for smart grid and energy
+                    infrastructure with real-time monitoring and automated
+                    threat response.
+                  </p>
+                  <div class="project-tech">
+                    <span class="tech-tag">Smart Grid</span>
+                    <span class="tech-tag">SCADA Security</span>
+                    <span class="tech-tag">Critical Infrastructure</span>
+                  </div>
+                  <div class="project-meta">
+                    <span class="project-team"
+                      >Critical Infrastructure Team</span
+                    >
+                    <span class="project-timeline">2024-2026</span>
+                  </div>
+                  <div class="project-actions">
+                    <a href="projects/smart-grid-security.html" class="btn-project btn-primary">View Details</a>
+                    <a href="#" class="btn-project btn-outline">Publications</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Medical Device Security -->
+            <div
+              class="col-lg-4 col-md-6"
+              data-aos="fade-up"
+              data-aos-delay="500"
+            >
+              <div class="project-card">
+                <div class="project-image">
+                  <img
+                    src="https://images.unsplash.com/photo-1582719471384-894fbb16e074?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80"
+                    alt="Medical Device Security"
+                  />
+                  <span class="project-status status-upcoming">Upcoming</span>
+                </div>
+                <div class="project-content">
+                  <span class="project-category">Medical Technology</span>
+                  <h3 class="project-title">Medical Device Security</h3>
+                  <p class="project-description">
+                    Security assessment and protection framework for connected
+                    medical devices including implants, monitors, and diagnostic
+                    equipment.
+                  </p>
+                  <div class="project-tech">
+                    <span class="tech-tag">Medical Devices</span>
+                    <span class="tech-tag">IoT Security</span>
+                    <span class="tech-tag">Healthcare</span>
+                  </div>
+                  <div class="project-meta">
+                    <span class="project-team">Healthcare Security Team</span>
+                    <span class="project-timeline">2023-2024</span>
+                  </div>
+                  <div class="project-actions">
+                    <a href="projects/medical-device-security.html" class="btn-project btn-primary">View Details</a>
+                    <a href="#" class="btn-project btn-outline">Publications</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Emerging Frontiers -->
+        <div id="emerging-frontiers" class="thematic-section">
+          <div class="section-header" data-aos="fade-up">
+            <span class="section-badge" id="thematic-area-4"
+              >Thematic Area 4</span
+            >
+            <h2 class="section-title">
+              Emerging Frontiers: Quantum-safe, Generative AI Security, and
+              Policy/Ethics
+            </h2>
+            <p class="section-description">
+              Exploring next-generation security challenges including quantum
+              computing threats, generative AI security, and developing ethical
+              AI policy frameworks.
+            </p>
+          </div>
+
+          <div class="row g-4">
+            <!-- Quantum Cryptography -->
+            <div
+              class="col-lg-4 col-md-6"
+              data-aos="fade-up"
+              data-aos-delay="100"
+            >
+              <div class="project-card">
+                <div class="project-image">
+                  <img
+                    src="https://images.unsplash.com/photo-1635070041078-e363dbe005cb?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80"
+                    alt="Quantum Cryptography"
+                  />
+                  <span class="project-status status-upcoming">Upcoming</span>
+                </div>
+                <div class="project-content">
+                  <span class="project-category">Quantum Security</span>
+                  <h3 class="project-title">Quantum Cryptography</h3>
+                  <p class="project-description">
+                    Developing post-quantum cryptographic algorithms and
+                    protocols resistant to quantum computing attacks on current
+                    encryption systems.
+                  </p>
+                  <div class="project-tech">
+                    <span class="tech-tag">Quantum Computing</span>
+                    <span class="tech-tag">Cryptography</span>
+                    <span class="tech-tag">Post-Quantum</span>
+                  </div>
+                  <div class="project-meta">
+                    <span class="project-team"
+                      >Cryptography Research Group</span
+                    >
+                    <span class="project-timeline">2023-2026</span>
+                  </div>
+                  <div class="project-actions">
+                    <a href="projects/quantum-cryptography.html" class="btn-project btn-primary">View Details</a>
+                    <a href="#" class="btn-project btn-outline">Publications</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Generative AI Security -->
+            <div
+              class="col-lg-4 col-md-6"
+              data-aos="fade-up"
+              data-aos-delay="200"
+            >
+              <div class="project-card">
+                <div class="project-image">
+                  <img
+                    src="https://images.unsplash.com/photo-1677442136019-21780ecad995?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80"
+                    alt="Generative AI Security"
+                  />
+                  <span class="project-status status-upcoming">Upcoming</span>
+                </div>
+                <div class="project-content">
+                  <span class="project-category">Generative AI</span>
+                  <h3 class="project-title">Generative AI Security</h3>
+                  <p class="project-description">
+                    Addressing security challenges in generative AI systems
+                    including prompt injection, model extraction, and content
+                    verification.
+                  </p>
+                  <div class="project-tech">
+                    <span class="tech-tag">Generative AI</span>
+                    <span class="tech-tag">LLM Security</span>
+                    <span class="tech-tag">Content Verification</span>
+                  </div>
+                  <div class="project-meta">
+                    <span class="project-team">AI Security Team</span>
+                    <span class="project-timeline">2023-2025</span>
+                  </div>
+                  <div class="project-actions">
+                    <a href="projects/generative-ai-security.html" class="btn-project btn-primary">View Details</a>
+                    <a href="#" class="btn-project btn-outline">Publications</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- AI Ethics Framework -->
+            <div
+              class="col-lg-4 col-md-6"
+              data-aos="fade-up"
+              data-aos-delay="300"
+            >
+              <div class="project-card">
+                <div class="project-image">
+                  <img
+                    src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80"
+                    alt="AI Ethics"
+                  />
+                  <span class="project-status status-upcoming">Upcoming</span>
+                </div>
+                <div class="project-content">
+                  <span class="project-category">Ethics & Policy</span>
+                  <h3 class="project-title">AI Ethics Framework</h3>
+                  <p class="project-description">
+                    Developing comprehensive ethical guidelines and frameworks
+                    for responsible AI development, deployment, and governance.
+                  </p>
+                  <div class="project-tech">
+                    <span class="tech-tag">AI Ethics</span>
+                    <span class="tech-tag">Governance</span>
+                    <span class="tech-tag">Policy Development</span>
+                  </div>
+                  <div class="project-meta">
+                    <span class="project-team">Ethics Committee</span>
+                    <span class="project-timeline">2023-2024</span>
+                  </div>
+                  <div class="project-actions">
+                    <a href="projects/ai-ethics-framework.html" class="btn-project btn-primary">View Details</a>
+                    <a href="#" class="btn-project btn-outline">Publications</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Blockchain Security -->
+            <div
+              class="col-lg-4 col-md-6"
+              data-aos="fade-up"
+              data-aos-delay="400"
+            >
+              <div class="project-card">
+                <div class="project-image">
+                  <img
+                    src="https://images.unsplash.com/photo-1639762681485-074b7f938ba0?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2032&q=80"
+                    alt="Blockchain Security"
+                  />
+                  <span class="project-status status-upcoming">Upcoming</span>
+                </div>
+                <div class="project-content">
+                  <span class="project-category">Blockchain</span>
+                  <h3 class="project-title">Blockchain Security Analysis</h3>
+                  <p class="project-description">
+                    Comprehensive security analysis of blockchain and
+                    distributed ledger technologies with focus on smart contract
+                    vulnerabilities.
+                  </p>
+                  <div class="project-tech">
+                    <span class="tech-tag">Blockchain</span>
+                    <span class="tech-tag">Smart Contracts</span>
+                    <span class="tech-tag">Cryptocurrency</span>
+                  </div>
+                  <div class="project-meta">
+                    <span class="project-team">Blockchain Research Team</span>
+                    <span class="project-timeline">2022-2023</span>
+                  </div>
+                  <div class="project-actions">
+                    <a href="projects/blockchain-security-analysis.html" class="btn-project btn-primary">View Details</a>
+                    <a href="#" class="btn-project btn-outline">Publications</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Responsible and Human-Centered AI -->
+        <div id="responsible-ai" class="thematic-section">
+          <div class="section-header" data-aos="fade-up">
+            <span class="section-badge" id="thematic-area-5"
+              >Thematic Area 5</span
+            >
+            <h2 class="section-title">
+              Responsible and Human-Centered Artificial Intelligence
+            </h2>
+            <p class="section-description">
+              Developing AI systems that are transparent, fair, accountable, and
+              designed with human values and societal impact in mind.
+            </p>
+          </div>
+
+          <div class="row g-4">
+            <!-- SignTalk Project -->
+            <div
+              class="col-lg-4 col-md-6"
+              data-aos="fade-up"
+              data-aos-delay="100"
+            >
+              <div class="project-card">
+                <div class="project-image">
+                  <img
+                    src="https://images.unsplash.com/photo-1587825140708-dfaf72ae4b04?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80"
+                    alt="SignTalk"
+                  />
+                  <span class="project-status status-Active">Active</span>
+                </div>
+                <div class="project-content">
+                  <span class="project-category">Accessibility</span>
+                  <h3 class="project-title">SignTalk AI Translator</h3>
+                  <p class="project-description">
+                    Real-time AI system for sign language translation, breaking
+                    communication barriers and promoting inclusivity for deaf
+                    communities.
+                  </p>
+                  <div class="project-tech">
+                    <span class="tech-tag">Computer Vision</span>
+                    <span class="tech-tag">NLP</span>
+                    <span class="tech-tag">Accessibility</span>
+                  </div>
+                  <div class="project-meta">
+                    <span class="project-team"
+                      >Accessibility Research Team</span
+                    >
+                    <span class="project-timeline">2023-2025</span>
+                  </div>
+                  <div class="project-actions">
+                    <a
+                      href="projects/signtalk-ai-translator.html"
+                      class="btn-project btn-primary"
+                      >View Details</a
+                    >
+                    <a href="#" class="btn-project btn-outline">Demo</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Ai for food sustainability -->
+            <div
+              class="col-lg-4 col-md-6"
+              data-aos="fade-up"
+              data-aos-delay="200"
+            >
+              <div class="project-card">
+                <div class="project-image">
+                  <img
+                    src="https://images.unsplash.com/photo-1555255707-c07966088b7b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80"
+                    alt="Explainable AI"
+                  />
+                  <span class="project-status status-upcoming">Upcoming</span>
+                </div>
+                <div class="project-content">
+                  <span class="project-category">Transparency</span>
+                  <h3 class="project-title">Ai for Food Sustainability</h3>
+                  <p class="project-description">
+                    Leveraging AI to enhance food sustainability through
+                    intelligent resource management, waste reduction, and
+                    optimized agricultural practices for a healthier planet.
+                  </p>
+                  <div class="project-tech">
+                    <span class="tech-tag">Sustainability</span>
+                    <span class="tech-tag">Resource Optimization</span>
+                    <span class="tech-tag">AgriTech</span>
+                  </div>
+                  <div class="project-meta">
+                    <span class="project-team">Food Sustainability Team</span>
+                    <span class="project-timeline">2024-2026</span>
+                  </div>
+                  <div class="project-actions">
+                    <a
+                      href="projects/ai-for-food-sustainability.html"
+                      class="btn-project btn-primary"
+                      >View Details</a
+                    >
+                    <a href="#" class="btn-project btn-outline">Publications</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Human-AI Collaboration -->
+            <div
+              class="col-lg-4 col-md-6"
+              data-aos="fade-up"
+              data-aos-delay="400"
+            >
+              <div class="project-card">
+                <div class="project-image">
+                  <img
+                    src="https://images.unsplash.com/photo-1581094794329-c8112a89af12?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80"
+                    alt="Human-AI Collaboration"
+                  />
+                  <span class="project-status status-active">Active</span>
+                </div>
+                <div class="project-content">
+                  <span class="project-category">Human-Centered AI</span>
+                  <h3 class="project-title">Human-AI Collaboration</h3>
+                  <p class="project-description">
+                    Research on effective human-AI teaming, collaboration
+                    patterns, and interface design for enhanced human-AI
+                    partnership.
+                  </p>
+                  <div class="project-tech">
+                    <span class="tech-tag">HCI</span>
+                    <span class="tech-tag">Collaboration</span>
+                    <span class="tech-tag">Interface Design</span>
+                  </div>
+                  <div class="project-meta">
+                    <span class="project-team">HCI Research Group</span>
+                    <span class="project-timeline">2023-2026</span>
+                  </div>
+                  <div class="project-actions">
+                    <a
+                      href="projects/human-ai-collaboration.html"
+                      class="btn-project btn-primary"
+                      >View Details</a
+                    >
+                    <a href="#" class="btn-project btn-outline">Publications</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta-section">
+      <div class="cta-bg"></div>
+      <div class="container">
+        <div class="cta-content" data-aos="fade-up">
+          <h2 class="cta-title">Interested in Our Research?</h2>
+          <p class="cta-text">
+            Join us in pushing the boundaries of AI and cybersecurity research.
+            Explore collaboration opportunities or apply to work with our team.
+          </p>
+          <a href="contact.html" class="btn-cta">Get Involved</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer bg-dark text-white py-5">
+      <div class="container py-5">
+        <div class="row g-5">
+          <div class="col-lg-4 col-md-6">
+            <div class="footer-about">
+              <div class="d-flex align-items-center mb-3">
+                <img
+                  src="https://www.brianknows.org/brian_logo.png"
+                  alt="CAIRLab Logo"
+                  class="logo-img me-2"
+                />
+                <h4 class="text-white m-0">CAIRLab</h4>
+              </div>
+              <p class="mb-4">
+                Advancing AI for Cybersecurity Innovation through cutting-edge
+                research and development.
+              </p>
+              <div class="d-flex pt-2">
+                <a href="#" class="btn btn-outline-light btn-square me-2"
+                  ><i class="fab fa-twitter"></i
+                ></a>
+                <a href="#" class="btn btn-outline-light btn-square me-2"
+                  ><i class="fab fa-facebook-f"></i
+                ></a>
+                <a href="#" class="btn btn-outline-light btn-square me-2"
+                  ><i class="fab fa-linkedin-in"></i
+                ></a>
+                <a href="#" class="btn btn-outline-light btn-square"
+                  ><i class="fab fa-instagram"></i
+                ></a>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-4 col-md-6">
+            <div class="footer-links">
+              <h4 class="text-white mb-4">Quick Links</h4>
+              <div class="d-flex flex-column">
+                <a href="index.html" class="text-white-50 mb-2"
+                  ><i class="fa fa-angle-right me-2"></i>Home</a
+                >
+                <a href="About.html" class="text-white-50 mb-2"
+                  ><i class="fa fa-angle-right me-2"></i>About</a
+                >
+                <a href="Themes.html" class="text-white-50 mb-2"
+                  ><i class="fa fa-angle-right me-2"></i>Themes</a
+                >
+                <a href="Project.html" class="text-white-50 mb-2"
+                  ><i class="fa fa-angle-right me-2"></i>Projects</a
+                >
+                <a href="Contact.html" class="text-white-50 mb-2"
+                  ><i class="fa fa-angle-right me-2"></i>Contact</a
+                >
+                <a href="Scholarships.html" class="text-white-50"
+                  ><i class="fa fa-angle-right me-2"></i>Apply For
+                  Scholarship</a
+                >
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-4 col-md-6">
+            <div class="footer-newsletter">
+              <h4 class="text-white mb-4">Newsletter</h4>
+              <p class="text-white-50 mb-4">
+                Subscribe to our newsletter for the latest research updates and
+                news.
+              </p>
+              <div class="position-relative">
+                <input
+                  type="text"
+                  class="form-control border-0 w-100 py-3 ps-4 pe-5"
+                  placeholder="Your email"
+                />
+                <button
+                  type="button"
+                  class="btn btn-primary py-2 px-3 position-absolute top-0 end-0 mt-2 me-2"
+                >
+                  Sign Up
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="container">
+        <div class="copyright">
+          <div class="row">
+            <div class="col-md-6 text-center text-md-start">
+              <p class="mb-0">
+                &copy; <span id="currentYear"></span> CAIRLab. All Rights
+                Reserved.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+    <script>
+      // Initialize AOS
+      AOS.init({
+        duration: 1000,
+        once: false,
+        mirror: false,
+      });
+
+      // Mobile navigation toggle
+      const mobileNavToggle = document.getElementById("mobileNavToggle");
+      const navLinks = document.getElementById("navLinks");
+
+      mobileNavToggle.addEventListener("click", () => {
+        mobileNavToggle.classList.toggle("active");
+        navLinks.classList.toggle("active");
+      });
+
+      // Close mobile menu when clicking on a link
+      const navItems = document.querySelectorAll(".nav-links a");
+      navItems.forEach((item) => {
+        item.addEventListener("click", () => {
+          mobileNavToggle.classList.remove("active");
+          navLinks.classList.remove("active");
+        });
+      });
+
+      // Theme toggle functionality
+      const themeToggle = document.querySelector(".cosmic-toggle .toggle");
+      const body = document.body;
+
+      // Check for saved theme preference or default to light
+      const currentTheme = localStorage.getItem("theme") || "light";
+      body.setAttribute("data-theme", currentTheme);
+
+      // Set initial checkbox state
+      if (currentTheme === "dark") {
+        themeToggle.checked = true;
+      }
+
+      themeToggle.addEventListener("change", () => {
+        const newTheme = themeToggle.checked ? "dark" : "light";
+        body.setAttribute("data-theme", newTheme);
+        localStorage.setItem("theme", newTheme);
+      });
+
+      // Set current year in footer
+      document.getElementById("currentYear").textContent =
+        new Date().getFullYear();
+
+      // Close mobile menu on window resize (if resized to larger screen)
+      window.addEventListener("resize", function () {
+        if (window.innerWidth > 768) {
+          mobileNavToggle.classList.remove("active");
+          navLinks.classList.remove("active");
+          body.classList.remove("menu-open");
+        }
+      });
+
+      // Handle escape key to close menu
+      document.addEventListener("keydown", function (e) {
+        if (e.key === "Escape" && navLinks.classList.contains("active")) {
+          mobileNavToggle.classList.remove("active");
+          navLinks.classList.remove("active");
+          body.classList.remove("menu-open");
+        }
+      });
+    </script>
+
+    <script>
+      // Set active navigation link based on current page
+      function setActiveNavLink() {
+        const currentPage =
+          window.location.pathname.split("/").pop() || "index.html";
+        const navLinks = document.querySelectorAll(".nav-links a");
+
+        navLinks.forEach((link) => {
+          const linkHref = link.getAttribute("href");
+          // Remove active class from all links
+          link.classList.remove("active");
+
+          // Check if this link matches current page
+          if (linkHref === currentPage) {
+            link.classList.add("active");
+          }
+
+          // Special case for index.html (home page)
+          if (
+            currentPage === "" ||
+            (currentPage === "index.html" && linkHref === "index.html")
+          ) {
+            link.classList.add("active");
+          }
+        });
+      }
+
+      // Call when page loads
+      document.addEventListener("DOMContentLoaded", setActiveNavLink);
+    </script>
+
+    // Thematic Area Navigation
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        const thematicFilters = document.querySelectorAll(".thematic-filter");
+        const thematicSections = document.querySelectorAll(".thematic-section");
+
+        // Filter functionality
+        thematicFilters.forEach((filter) => {
+          filter.addEventListener("click", function (e) {
+            e.preventDefault();
+
+            // Remove active class from all filters
+            thematicFilters.forEach((f) => f.classList.remove("active"));
+            // Add active class to clicked filter
+            this.classList.add("active");
+
+            // Get target section
+            const targetId = this.getAttribute("href").substring(1);
+            const targetSection = document.getElementById(targetId);
+
+            // Scroll to target section
+            if (targetSection) {
+              const offsetTop = targetSection.offsetTop - 100;
+              window.scrollTo({
+                top: offsetTop,
+                behavior: "smooth",
+              });
+            }
+          });
+        });
+
+        // Update active filter on scroll
+        function updateActiveFilter() {
+          const scrollPosition = window.scrollY + 150;
+
+          thematicSections.forEach((section) => {
+            const sectionTop = section.offsetTop;
+            const sectionBottom = sectionTop + section.offsetHeight;
+            const sectionId = section.getAttribute("id");
+
+            if (
+              scrollPosition >= sectionTop &&
+              scrollPosition < sectionBottom
+            ) {
+              thematicFilters.forEach((filter) => {
+                filter.classList.remove("active");
+                if (filter.getAttribute("href") === `#${sectionId}`) {
+                  filter.classList.add("active");
+                }
+              });
+            }
+          });
+        }
+
+        window.addEventListener("scroll", updateActiveFilter);
+        updateActiveFilter(); // Initial call
+      });
+
+      // Back to Top Button
+    </script>
+
+    <script>
+      // Advanced Back to Top Button with Progress
+      function initBackToTop() {
+        const backToTopButton = document.getElementById("backToTop");
+        const progressFill = document.querySelector(".progress-circle-fill");
+        const circumference = 138.16; // 2 * π * 22
+
+        // Show/hide button and update progress
+        function toggleBackToTop() {
+          const scrollTop = window.pageYOffset;
+          const docHeight =
+            document.documentElement.scrollHeight - window.innerHeight;
+          const scrollProgress = (scrollTop / docHeight) * 100;
+
+          if (scrollTop > 300) {
+            backToTopButton.classList.add("visible");
+            // Update progress circle
+            const offset =
+              circumference - (scrollProgress / 100) * circumference;
+            progressFill.style.strokeDashoffset = offset;
+          } else {
+            backToTopButton.classList.remove("visible");
+            progressFill.style.strokeDashoffset = circumference;
+          }
+        }
+
+        // Scroll to top function
+        function scrollToTop() {
+          backToTopButton.classList.add("bounce");
+
+          window.scrollTo({
+            top: 0,
+            behavior: "smooth",
+          });
+
+          setTimeout(() => {
+            backToTopButton.classList.remove("bounce");
+          }, 1000);
+        }
+
+        // Event listeners
+        window.addEventListener("scroll", toggleBackToTop);
+        backToTopButton.addEventListener("click", scrollToTop);
+
+        // Initial check
+        toggleBackToTop();
+      }
+
+      document.addEventListener("DOMContentLoaded", initBackToTop);
+    </script>
+
+    <!-- Advanced Back to Top Button with Progress -->
+    <button id="backToTop" class="back-to-top" aria-label="Back to top">
+      <svg class="progress-circle" width="50" height="50">
+        <circle
+          class="progress-circle-background"
+          cx="25"
+          cy="25"
+          r="22"
+        ></circle>
+        <circle class="progress-circle-fill" cx="25" cy="25" r="22"></circle>
+      </svg>
+      <i class="fas fa-chevron-up"></i>
+    </button>
+  </body>
+</html>

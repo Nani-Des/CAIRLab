@@ -1,0 +1,803 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Adversarial ML Defense System - CAIRLab</title>
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <link href="../img/favicon.ico" rel="icon" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@300;700&family=Work+Sans:wght@400;600&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.0/css/all.min.css"
+      rel="stylesheet"
+    />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css"
+      rel="stylesheet"
+    />
+    <link href="../../lib/animate/animate.min.css" rel="stylesheet" />
+    <link href="../../lib/lightbox/css/lightbox.min.css" rel="stylesheet" />
+    <link href="../../lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet" />
+    <link href="../../css/bootstrap.min.css" rel="stylesheet" />
+    <link href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css" rel="stylesheet"/>
+    <link href="../../css/style.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+    <style>
+      :root {
+        --primary: #00957c;
+        --primary-dark: #007a63;
+        --secondary: #26a0a2;
+        --bg-primary: #ffffff;
+        --bg-secondary: #f8f9fa;
+        --text-primary: #333333;
+        --text-secondary: #666666;
+        --accent: #0056b3;
+      }
+
+      [data-theme="dark"] {
+        --bg-primary: #0a1929;
+        --bg-secondary: #091314;
+        --bg-tertiary: #132f4c;
+        --text-primary: #e3f2fd;
+        --text-secondary: #bbdefb;
+        --accent-color: #64ffda;
+        --header-bg: rgba(10, 25, 47, 0.95);
+        --card-bg: rgba(19, 47, 76, 0.8);
+        --shadow-color: rgba(0, 0, 0, 0.3);
+        --particle-color: rgba(100, 255, 218, 0.8);
+        --radar-color: #64ffda;
+      }
+
+      body {
+        font-family: "Work Sans", sans-serif;
+        background-color: var(--bg-primary);
+        color: var(--text-primary);
+        transition: all 0.3s ease;
+        overflow-x: hidden;
+      }
+
+      h1, h2, h3, h4, h5, h6 {
+        font-family: "Josefin Sans", sans-serif;
+        font-weight: 700;
+      }
+
+      header {
+        background: transparent;
+        backdrop-filter: blur(10px);
+        box-shadow: 0 2px 10px var(--shadow-color);
+        padding: 1rem 0;
+        position: sticky;
+        top: 0;
+        z-index: 1000;
+        transition: background 0.5s ease, box-shadow 0.3s ease;
+      }
+
+      .navbar {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 1rem 0;
+      }
+
+      .logo {
+        height: 50px;
+        font-size: 1.8rem;
+        font-weight: 700;
+        color: var(--accent-color);
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        transition: color 0.3s ease;
+      }
+
+      .logo-img {
+        height: 60px !important;
+        width: 60px !important;
+        transition: all 0.3s ease;
+      }
+
+      .logo-text {
+        font-size: 1.8rem;
+        font-weight: 700;
+        color: #26a0a2;
+      }
+
+      @media (max-width: 768px) {
+        .logo-img {
+          height: 35px;
+        }
+        .logo-text {
+          font-size: 1.5rem;
+        }
+      }
+      @media (max-width: 576px) {
+        .logo-img {
+          height: 30px;
+        }
+        .logo-text {
+          font-size: 1.3rem;
+        }
+      }
+
+      .nav-links {
+        display: flex;
+        list-style: none;
+        gap: 2rem;
+        align-items: center;
+        margin: 0;
+        overflow: visible !important;
+      }
+
+      .nav-links a {
+        text-decoration: none;
+        color: var(--text-primary);
+        font-weight: 600;
+        transition: color 0.3s ease;
+        position: relative;
+      }
+
+      .nav-links a.active {
+        color: #74075a !important;
+        font-weight: 700;
+        background-color: transparent;
+        padding: 5px;
+        border-radius: 5px;
+        border-bottom: 3px solid #199c95;
+        font-size: 1.3rem;
+      }
+
+      .nav-links a:hover {
+        color: var(--primary);
+      }
+
+      .nav-links a::after {
+        content: "";
+        position: absolute;
+        bottom: -5px;
+        left: 0;
+        width: 0;
+        height: 2px;
+        background: var(--primary);
+        transition: width 0.3s ease;
+      }
+
+      .nav-links a:hover::after {
+        width: 100%;
+      }
+
+      .btn-involved {
+        background: var(--primary);
+        color: white;
+        border: none;
+        padding: 0.5rem 1.5rem;
+        border-radius: 25px;
+        font-weight: 600;
+        transition: all 0.3s ease;
+        cursor: pointer;
+      }
+
+      .btn-involved:hover {
+        background: var(--primary-dark);
+        transform: translateY(-2px);
+        box-shadow: 0 5px 15px rgba(0, 149, 124, 0.3);
+      }
+
+      .nav-controls {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+      }
+
+      .mobile-nav-toggle {
+        display: none;
+        flex-direction: column;
+        background: none;
+        border: none;
+        cursor: pointer;
+        padding: 5px;
+      }
+
+      .mobile-nav-toggle span {
+        width: 25px;
+        height: 3px;
+        background: var(--text-primary);
+        margin: 3px 0;
+        transition: 0.3s;
+        border-radius: 2px;
+      }
+
+      @media (max-width: 768px) {
+        .nav-links {
+          display: none;
+          position: absolute;
+          top: 100%;
+          left: 0;
+          width: 100%;
+          background: var(--bg-primary);
+          flex-direction: column;
+          padding: 1rem 0;
+          box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .nav-links.active {
+          display: flex;
+          color: var(--text-primary);
+        }
+
+        .mobile-nav-toggle {
+          display: flex;
+        }
+
+        .mobile-nav-toggle.active span:nth-child(1) {
+          transform: rotate(45deg) translate(5px, 5px);
+        }
+
+        .mobile-nav-toggle.active span:nth-child(2) {
+          opacity: 0;
+        }
+
+        .mobile-nav-toggle.active span:nth-child(3) {
+          transform: rotate(-45deg) translate(7px, -6px);
+        }
+      }
+
+      .project-detail-hero {
+        background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 149, 124, 0.4)),
+          url("https://plus.unsplash.com/premium_photo-1674582743901-7e438e0e5ea0?q=80&w=747&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D");
+        padding: 8rem 0 4rem;
+        position: relative;
+        overflow: hidden;
+        color: white;
+        background-attachment: fixed;
+        min-height: 50vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+      }
+
+      .project-detail-hero .container {
+        z-index: 2;
+      }
+
+      .project-detail-hero h1 {
+        font-size: 3.5rem;
+        font-weight: 700;
+        margin-bottom: 1rem;
+        background: linear-gradient(135deg, #ffffff 0%, #26a0a2 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+      }
+
+      .project-detail-hero p {
+        font-size: 1.2rem;
+        color: rgba(255, 255, 255, 0.9);
+        max-width: 800px;
+        margin: 0 auto;
+      }
+
+      .project-detail-content {
+        padding: 4rem 0;
+      }
+
+      .project-overview img {
+        max-width: 100%;
+        height: auto;
+        border-radius: 10px;
+        margin-bottom: 2rem;
+      }
+
+      .project-meta-details {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 1.5rem;
+        margin-bottom: 2rem;
+      }
+
+      .meta-item {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        font-size: 1.1rem;
+        color: var(--text-secondary);
+      }
+
+      .meta-item i {
+        color: var(--primary);
+        font-size: 1.3rem;
+      }
+
+      .project-sections h2 {
+        color: var(--primary);
+        margin-top: 3rem;
+        margin-bottom: 1.5rem;
+      }
+
+      .project-sections h3 {
+        color: var(--text-primary);
+        margin-top: 2rem;
+        margin-bottom: 1rem;
+      }
+
+      .project-sections p,
+      .project-sections ul {
+        color: var(--text-secondary);
+        line-height: 1.8;
+        margin-bottom: 1rem;
+      }
+
+      .project-sections ul {
+        list-style-type: disc;
+        margin-left: 20px;
+      }
+
+      .project-sections ul li {
+        margin-bottom: 0.5rem;
+      }
+
+      .tech-stack-section .tech-tag {
+        margin-bottom: 0.5rem;
+      }
+
+      .back-to-themes {
+        margin-top: 3rem;
+        text-align: center;
+      }
+
+      .back-to-themes .btn {
+        background-color: var(--primary);
+        color: white;
+        padding: 10px 25px;
+        border-radius: 50px;
+        text-decoration: none;
+        transition: all 0.3s ease;
+      }
+
+      .back-to-themes .btn:hover {
+        background-color: var(--primary-dark);
+        transform: translateY(-2px);
+        box-shadow: 0 5px 15px rgba(0, 149, 124, 0.3);
+      }
+
+      @media (max-width: 768px) {
+        .project-detail-hero h1 {
+          font-size: 2.5rem;
+        }
+        .project-detail-hero p {
+          font-size: 1rem;
+        }
+      }
+
+      /*** Footer ***/
+      @keyframes footerAnimatedBg {
+        0% {
+          background-position: 0 0;
+        }
+
+        100% {
+          background-position: -1000px 0;
+        }
+      }
+
+      .footer {
+        background-image: url(../../img/footer.png);
+        background-position: 0px 0px;
+        background-repeat: repeat-x;
+        animation: footerAnimatedBg 50s linear infinite;
+        background-color: #0e1b20 !important;
+      }
+
+      .footer-links a:hover {
+        color: white !important;
+        transform: scale(0.95);
+      }
+    </style>
+  </head>
+  <body data-theme="light">
+    <header>
+      <div class="container">
+        <nav class="navbar">
+          <div class="logo">
+            <img
+              src="https://www.brianknows.org/brian_logo.png"
+              alt="CAIRLab Logo"
+              class="logo-img"
+            />
+            <span class="logo-text">CAIRLab</span>
+          </div>
+          <ul class="nav-links ms-auto" id="navLinks">
+            <li><a href="../index.html">Home</a></li>
+            <li><a href="../About.html">About</a></li>
+            <li><a href="../Themes.html">Themes</a></li>
+            <li><a href="../Projects.html">Projects</a></li>
+            <li><a href="../Contact.html">Contact</a></li>
+            <li><a href="../Scholarships.html">Apply For Scholarship</a></li>
+            <li>
+              <button
+                class="btn-involved"
+                onclick="window.location.href='../Contact.html'"
+              >
+                Get Involved
+              </button>
+            </li>
+          </ul>
+          <div class="nav-controls">
+            <button
+              class="mobile-nav-toggle"
+              id="mobileNavToggle"
+              aria-label="Toggle Navigation"
+            >
+              <span></span>
+              <span></span>
+              <span></span>
+            </button>
+            <label class="cosmic-toggle">
+              <input class="toggle" type="checkbox" />
+              <div class="slider">
+                <div class="cosmos"></div>
+                <div class="energy-line"></div>
+                <div class="energy-line"></div>
+                <div class="energy-line"></div>
+                <div class="toggle-orb">
+                  <div class="inner-orb"></div>
+                  <div class="ring"></div>
+                </div>
+                <div class="particles">
+                  <div style="--angle: 30deg" class="particle"></div>
+                  <div style="--angle: 60deg" class="particle"></div>
+                  <div style="--angle: 90deg" class="particle"></div>
+                  <div style="--angle: 120deg" class="particle"></div>
+                  <div style="--angle: 150deg" class="particle"></div>
+                  <div style="--angle: 180deg" class="particle"></div>
+                </div>
+              </div>
+            </label>
+          </div>
+        </nav>
+      </div>
+    </header>
+
+    <section class="project-detail-hero">
+      <div class="container">
+        <h1 id="project-title">Adversarial ML Defense System</h1>
+        <p id="project-tagline">Developing state-of-the-art defense mechanisms against adversarial attacks on deep learning models in critical applications.</p>
+      </div>
+    </section>
+
+    <section class="project-detail-content container">
+      <div class="row">
+        <div class="col-lg-8">
+          <div class="project-overview">
+            <img id="project-main-image" src="https://images.unsplash.com/photo-1555255707-c07966088b7b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80" alt="Project Image" />
+            <p id="project-full-description">
+              The Adversarial ML Defense System represents a cutting-edge research initiative addressing one of the most critical vulnerabilities in modern artificial intelligence: adversarial attacks. These sophisticated attacks can fool even state-of-the-art deep learning models with imperceptible perturbations to input data, potentially causing catastrophic failures in safety-critical applications.
+
+              Our research develops comprehensive defense mechanisms that protect machine learning systems across the entire attack surface. We combine theoretical advances in adversarial robustness with practical engineering solutions to create multi-layered defense systems that can detect, mitigate, and adapt to evolving attack strategies.
+
+              The project focuses on three critical dimensions: (1) proactive defense through robust training methodologies, (2) reactive protection via runtime monitoring and anomaly detection, and (3) adaptive response systems that learn from and counter new attack patterns. By integrating these approaches, we aim to establish new standards for AI reliability in mission-critical applications where security cannot be compromised.
+            </p>
+          </div>
+
+          <div class="project-sections">
+            <h2 id="section-objectives">Objectives</h2>
+            <p id="objectives-content">
+              The Adversarial ML Defense System pursues ambitious objectives to fundamentally enhance the security posture of deep learning systems while maintaining their functional capabilities. Our work addresses the critical need for AI systems that can operate reliably in adversarial environments.
+            </p>
+            <h3>Comprehensive Attack Mitigation</h3>
+            <p>Develop defense mechanisms against all major classes of adversarial attacks including white-box attacks (FGSM, PGD, C&W), black-box attacks (transfer attacks, zeroth-order optimization), and physical-world attacks (adversarial patches, lighting variations).</p>
+            <h3>Certified Robustness Guarantees</h3>
+            <p>Create provably robust defense algorithms with mathematical guarantees against adversarial perturbations within specified bounds, enabling certification of AI systems for safety-critical applications.</p>
+            <h3>Real-time Defense Systems</h3>
+            <p>Implement efficient runtime protection mechanisms that can detect and neutralize adversarial inputs with minimal computational overhead and latency impact on production systems.</p>
+            <h3>Adaptive Defense Evolution</h3>
+            <p>Develop self-learning defense systems that can adapt to new attack patterns and evolve their protection mechanisms based on encountered threats and attack trends.</p>
+            <h3>Industry-Ready Solutions</h3>
+            <p>Create modular, scalable defense frameworks that can be easily integrated into existing AI pipelines and deployed across diverse application domains.</p>
+
+            <h2 id="section-methodology">Methodology</h2>
+            <p id="methodology-content">
+              Our research employs a systematic, iterative methodology that combines theoretical analysis, empirical evaluation, and practical implementation. We follow a red-team/blue-team approach where attack development and defense creation occur simultaneously, ensuring comprehensive coverage of threat vectors.
+            </p>
+            <h3>Phase 1: Adversarial Threat Intelligence</h3>
+            <p>Comprehensive analysis of the adversarial attack landscape including gradient-based attacks (FGSM, BIM, PGD), optimization-based attacks (C&W, EAD), decision-based attacks, and physical-world attacks. We maintain an active threat intelligence database tracking emerging attack techniques and their effectiveness against different model architectures.</p>
+            <h3>Phase 2: Defense Mechanism Development</h3>
+            <p>Multi-pronged defense strategy development including: (1) Robust training techniques (adversarial training, TRADES, MART), (2) Input preprocessing defenses (JPEG compression, random resizing), (3) Model hardening approaches (defensive distillation, feature squeezing), and (4) Ensemble defense methods combining multiple protection layers.</p>
+            <h3>Phase 3: Certified Defense Algorithms</h3>
+            <p>Development of provably robust algorithms using formal verification techniques. Implementation of randomized smoothing, convex relaxation methods, and interval bound propagation to provide mathematical guarantees against adversarial perturbations within specified threat models.</p>
+            <h3>Phase 4: Runtime Protection Systems</h3>
+            <p>Design and implementation of efficient runtime defense mechanisms including adversarial input detection, confidence thresholding, and automated response systems. Development of lightweight algorithms suitable for deployment in resource-constrained environments.</p>
+            <h3>Phase 5: Empirical Evaluation & Benchmarking</h3>
+            <p>Rigorous evaluation across multiple datasets (ImageNet, CIFAR-10, MNIST), model architectures (CNNs, Transformers, GNNs), and application domains. Establishment of standardized benchmarks and comparative analysis against state-of-the-art defense methods.</p>
+
+            <h2 id="section-results">Expected Results & Impact</h2>
+            <p id="results-content">
+              The Adversarial ML Defense System will deliver groundbreaking advancements in AI security, establishing new standards for robust machine learning deployment across critical applications.
+            </p>
+            <h3>Technical Achievements</h3>
+            <ul>
+              <li><strong>Attack Success Rate Reduction:</strong> 95%+ reduction in adversarial attack success rates across multiple threat models</li>
+              <li><strong>Certified Robustness:</strong> Mathematical guarantees against adversarial perturbations within ε-balls</li>
+              <li><strong>Computational Efficiency:</strong> Defense mechanisms with less than 10% performance overhead</li>
+              <li><strong>Cross-Domain Effectiveness:</strong> Robust performance across computer vision, NLP, and other AI domains</li>
+            </ul>
+            <h3>Application Impact</h3>
+            <ul>
+              <li><strong>Autonomous Vehicles:</strong> Protect perception systems from adversarial road signs and environmental manipulations</li>
+              <li><strong>Medical AI:</strong> Ensure reliability of diagnostic systems against adversarial medical imaging attacks</li>
+              <li><strong>Financial Systems:</strong> Secure algorithmic trading and fraud detection against manipulation attempts</li>
+              <li><strong>Critical Infrastructure:</strong> Protect AI-driven control systems in power grids and transportation networks</li>
+            </ul>
+            <h3>Research Contributions</h3>
+            <ul>
+              <li>Publication of novel defense algorithms in top-tier conferences (ICML, NeurIPS, ICLR)</li>
+              <li>Open-source release of defense frameworks and evaluation benchmarks</li>
+              <li>Establishment of standardized evaluation protocols for adversarial robustness</li>
+              <li>Development of educational resources for secure AI development practices</li>
+            </ul>
+            <h3>Economic & Societal Impact</h3>
+            <p>The system will enable widespread adoption of AI in high-stakes applications where security concerns previously prevented deployment. This work will contribute to building public trust in AI systems and accelerate the development of safer autonomous technologies.</p>
+
+
+
+            <h2 id="section-tech-stack">Technology Stack & Tools</h2>
+            <div id="tech-stack-list" class="project-tech">
+              <span class="tech-tag">PyTorch</span>
+              <span class="tech-tag">TensorFlow</span>
+              <span class="tech-tag">JAX</span>
+              <span class="tech-tag">CUDA</span>
+              <span class="tech-tag">Adversarial Robustness Toolbox</span>
+              <span class="tech-tag">Foolbox</span>
+              <span class="tech-tag">CleverHans</span>
+              <span class="tech-tag">Python</span>
+              <span class="tech-tag">Docker</span>
+              <span class="tech-tag">Weights & Biases</span>
+              <span class="tech-tag">GitHub Actions</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-lg-4">
+          <div class="bg-light p-4 rounded mb-4">
+            <h4>Project At a Glance</h4>
+            <div class="project-meta-details flex-column align-items-start">
+              <div class="meta-item">
+                <i class="fas fa-calendar-alt"></i>
+                <strong>Timeline:</strong> <span id="meta-timeline">2023-2024</span>
+              </div>
+              <div class="meta-item">
+                <i class="fas fa-users"></i>
+                <strong>Team Lead:</strong> <span id="meta-team-lead">Dr. Emmmanuel Ahene</span>
+              </div>
+              <div class="meta-item">
+                <i class="fas fa-layer-group"></i>
+                <strong>Thematic Area:</strong> <span id="meta-thematic-area">Trustworthy & Secure AI</span>
+              </div>
+              <div class="meta-item">
+                <i class="fas fa-chart-line"></i>
+                <strong>Status:</strong> <span id="meta-status">Upcoming</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="bg-light p-4 rounded">
+            <h4>Quick Navigation</h4>
+            <ul class="list-unstyled">
+              <li><a href="#section-objectives" class="text-decoration-none text-primary">Objectives</a></li>
+              <li><a href="#section-methodology" class="text-decoration-none text-primary">Methodology</a></li>
+              <li><a href="#section-results" class="text-decoration-none text-primary">Results & Impact</a></li>
+              <li><a href="#section-tech-stack" class="text-decoration-none text-primary">Tech Stack</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="back-to-themes">
+        <a href="../Themes.html" class="btn"><i class="fas fa-arrow-left me-2"></i> Back to Themes</a>
+      </div>
+    </section>
+
+    <footer class="footer bg-dark text-white py-5">
+      <div class="container py-5">
+        <div class="row g-5">
+          <div class="col-lg-4 col-md-6">
+            <div class="footer-about">
+              <div class="d-flex align-items-center mb-3">
+                <img
+                  src="https://www.brianknows.org/brian_logo.png"
+                  alt="CAIRLab Logo"
+                  class="logo-img me-2"
+                />
+                <h4 class="text-white m-0">CAIRLab</h4>
+              </div>
+              <p class="mb-4">
+                Advancing AI for Cybersecurity Innovation through cutting-edge
+                research and development.
+              </p>
+              <div class="d-flex pt-2">
+                <a href="#" class="btn btn-outline-light btn-square me-2"
+                  ><i class="fab fa-twitter"></i></a
+                >
+                <a href="#" class="btn btn-outline-light btn-square me-2"
+                  ><i class="fab fa-facebook-f"></i></a
+                >
+                <a href="#" class="btn btn-outline-light btn-square me-2"
+                  ><i class="fab fa-linkedin-in"></i></a
+                >
+                <a href="#" class="btn btn-outline-light btn-square"
+                  ><i class="fab fa-instagram"></i></a
+                >
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-4 col-md-6">
+            <div class="footer-links">
+              <h4 class="text-white mb-4">Quick Links</h4>
+              <div class="d-flex flex-column">
+                <a href="../index.html" class="text-white-50 mb-2"
+                  ><i class="fa fa-angle-right me-2"></i>Home</a
+                >
+                <a href="../About.html" class="text-white-50 mb-2"
+                  ><i class="fa fa-angle-right me-2"></i>About</a
+                >
+                <a href="../Themes.html" class="text-white-50 mb-2"
+                  ><i class="fa fa-angle-right me-2"></i>Themes</a
+                >
+                <a href="../Projects.html" class="text-white-50 mb-2"
+                  ><i class="fa fa-angle-right me-2"></i>Projects</a
+                >
+                <a href="../Contact.html" class="text-white-50 mb-2"
+                  ><i class="fa fa-angle-right me-2"></i>Contact</a
+                >
+                <a href="../Scholarships.html" class="text-white-50"
+                  ><i class="fa fa-angle-right me-2"></i>Apply For
+                  Scholarship</a
+                >
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-4 col-md-6">
+            <div class="footer-newsletter">
+              <h4 class="text-white mb-4">Newsletter</h4>
+              <p class="text-white-50 mb-4">
+                Subscribe to our newsletter for the latest research updates and
+                news.
+              </p>
+              <div class="position-relative">
+                <input
+                  type="text"
+                  class="form-control border-0 w-100 py-3 ps-4 pe-5"
+                  placeholder="Your email"
+                />
+                <button
+                  type="button"
+                  class="btn btn-primary py-2 px-3 position-absolute top-0 end-0 mt-2 me-2"
+                >
+                  Sign Up
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="container">
+        <div class="copyright">
+          <div class="row">
+            <div class="col-md-6 text-center text-md-start">
+              <p class="mb-0">
+                &copy; <span id="currentYear"></span> CAIRLab. All Rights
+                Reserved.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+    <script>
+      // Initialize AOS
+      AOS.init({
+        duration: 1000,
+        once: false,
+        mirror: false,
+      });
+
+      // Mobile navigation toggle
+      const mobileNavToggle = document.getElementById("mobileNavToggle");
+      const navLinks = document.getElementById("navLinks");
+
+      mobileNavToggle.addEventListener("click", () => {
+        mobileNavToggle.classList.toggle("active");
+        navLinks.classList.toggle("active");
+      });
+
+      // Close mobile menu when clicking on a link
+      const navItems = document.querySelectorAll(".nav-links a");
+      navItems.forEach((item) => {
+        item.addEventListener("click", () => {
+          mobileNavToggle.classList.remove("active");
+          navLinks.classList.remove("active");
+        });
+      });
+
+      // Theme toggle functionality
+      const themeToggle = document.querySelector(".cosmic-toggle .toggle");
+      const body = document.body;
+
+      // Check for saved theme preference or default to light
+      const currentTheme = localStorage.getItem("theme") || "light";
+      body.setAttribute("data-theme", currentTheme);
+
+      // Set initial checkbox state
+      if (currentTheme === "dark") {
+        themeToggle.checked = true;
+      }
+
+      themeToggle.addEventListener("change", () => {
+        const newTheme = themeToggle.checked ? "dark" : "light";
+        body.setAttribute("data-theme", newTheme);
+        localStorage.setItem("theme", newTheme);
+      });
+
+      // Set current year in footer
+      document.getElementById("currentYear").textContent =
+        new Date().getFullYear();
+
+      // Close mobile menu on window resize (if resized to larger screen)
+      window.addEventListener("resize", function () {
+        if (window.innerWidth > 768) {
+          mobileNavToggle.classList.remove("active");
+          navLinks.classList.remove("active");
+          body.classList.remove("menu-open");
+        }
+      });
+
+      // Handle escape key to close menu
+      document.addEventListener("keydown", function (e) {
+        if (e.key === "Escape" && navLinks.classList.contains("active")) {
+          mobileNavToggle.classList.remove("active");
+          navLinks.classList.remove("active");
+          body.classList.remove("menu-open");
+        }
+      });
+    </script>
+    <script>
+      // Set active navigation link based on current page
+      function setActiveNavLink() {
+        const currentPage =
+          window.location.pathname.split("/").pop() || "index.html";
+        const navLinks = document.querySelectorAll(".nav-links a");
+
+        navLinks.forEach((link) => {
+          const linkHref = link.getAttribute("href");
+          // Remove active class from all links
+          link.classList.remove("active");
+
+          # Check if this link matches current page
+          if (linkHref === currentPage) {
+            link.classList.add("active");
+          }
+
+          # Special case for index.html (home page)
+          if (
+            currentPage === "" ||
+            (currentPage === "index.html" && linkHref === "index.html")
+          ) {
+            link.classList.add("active");
+          }
+        });
+      }
+
+      # Call when page loads
+      document.addEventListener("DOMContentLoaded", setActiveNavLink);
+    </script>
+  </body>
+</html>
