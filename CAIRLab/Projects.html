@@ -1,0 +1,2025 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Our Labs - CAIRLab | Cybersecurity and AI Research</title>
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+
+    <!-- Favicon -->
+    <link href="img/favicon.ico" rel="icon" />
+
+    <!-- Google Web Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@300;700&family=Work+Sans:wght@400;600&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- Icon Font Stylesheet -->
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.0/css/all.min.css"
+      rel="stylesheet"
+    />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css"
+      rel="stylesheet"
+    />
+
+    <!-- AOS (Animate on Scroll) -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css"
+      rel="stylesheet"
+    />
+
+    <style>
+      :root {
+        --primary: #00957c;
+        --primary-dark: #007a63;
+        --secondary: #26a0a2;
+        --bg-primary: #ffffff;
+        --bg-secondary: #f8f9fa;
+        --text-primary: #333333;
+        --text-secondary: #666666;
+        --accent: #0056b3;
+      }
+
+      [data-theme="dark"] {
+        --bg-primary: #0a1929;
+        --bg-secondary: #091314;
+        --bg-tertiary: #132f4c;
+        --text-primary: #e3f2fd;
+        --text-secondary: #bbdefb;
+        --accent-color: #64ffda;
+        --header-bg: rgba(10, 25, 47, 0.95);
+        --card-bg: rgba(19, 47, 76, 0.8);
+        --shadow-color: rgba(0, 0, 0, 0.3);
+        --particle-color: rgba(100, 255, 218, 0.8);
+        --radar-color: #64ffda;
+      }
+
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: "Work Sans", sans-serif;
+        background-color: var(--bg-primary);
+        color: var(--text-primary);
+        transition: all 0.3s ease;
+        overflow-x: hidden;
+      }
+
+      /*** Spinner ***/
+      #spinner {
+        opacity: 0;
+        visibility: hidden;
+        transition: opacity 0.5s ease-out, visibility 0s linear 0.5s;
+        z-index: 99999;
+      }
+
+      #spinner.show {
+        transition: opacity 0.5s ease-out, visibility 0s linear 0s;
+        visibility: visible;
+        opacity: 1;
+      }
+
+      h1,
+      h2,
+      h3,
+      h4,
+      h5,
+      h6 {
+        font-family: "Josefin Sans", sans-serif;
+        font-weight: 700;
+      }
+
+      /* Header & Navigation */
+      header {
+        background: transparent;
+        backdrop-filter: blur(10px);
+        box-shadow: 0 2px 10px var(--shadow-color);
+
+        position: sticky;
+        top: 0;
+        z-index: 1000;
+        transition: background 0.5s ease, box-shadow 0.3s ease;
+      }
+
+      .navbar {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 1rem 0;
+      }
+
+      .logo {
+        height: 50px;
+        font-size: 1.8rem;
+        font-weight: 700;
+        color: var(--accent-color);
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        transition: color 0.3s ease;
+      }
+
+      .logo-img {
+        height: 60px !important;
+        width: 60px !important;
+        transition: all 0.3s ease;
+      }
+
+      .logo-text {
+        font-size: 1.8rem;
+        font-weight: 700;
+        color: #26a0a2;
+      }
+
+      /* Mobile adjustments */
+      @media (max-width: 768px) {
+        .logo-img {
+          height: 35px;
+        }
+
+        .logo-text {
+          font-size: 1.5rem;
+        }
+      }
+
+      @media (max-width: 576px) {
+        .logo-img {
+          height: 30px;
+        }
+
+        .logo-text {
+          font-size: 1.3rem;
+        }
+      }
+
+      .nav-links {
+        display: flex;
+        list-style: none;
+        gap: 2rem;
+        align-items: center;
+        margin: 0;
+      }
+
+      .nav-links a {
+        text-decoration: none;
+        color: var(--text-secondary);
+        font-weight: 600;
+        transition: color 0.3s ease;
+        position: relative;
+      }
+
+      .nav-links a:hover {
+        color: var(--primary);
+      }
+
+      .nav-links a.active {
+        color: #74075a !important;
+        font-weight: 700;
+        background-color: transparent !important;
+        padding: 5px;
+        border-radius: 5px;
+        border-bottom: 3px solid #199c95;
+        font-size: 1.3rem;
+      }
+
+      .nav-links a::after {
+        content: "";
+        position: absolute;
+        bottom: -5px;
+        left: 0;
+        width: 0;
+        height: 2px;
+        background: var(--primary);
+        transition: width 0.3s ease;
+      }
+
+      .nav-links a:hover::after {
+        width: 100%;
+      }
+
+      .btn-involved {
+        background: var(--primary);
+        color: white;
+        border: none;
+        padding: 0.5rem 1.5rem;
+        border-radius: 25px;
+        font-weight: 600;
+        transition: all 0.3s ease;
+        cursor: pointer;
+      }
+
+      .btn-involved:hover {
+        background: var(--primary-dark);
+        transform: translateY(-2px);
+        box-shadow: 0 5px 15px rgba(0, 149, 124, 0.3);
+      }
+
+      .nav-controls {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+      }
+
+      .mobile-nav-toggle {
+        display: none;
+        flex-direction: column;
+        background: none;
+        border: none;
+        cursor: pointer;
+        padding: 5px;
+      }
+
+      .mobile-nav-toggle span {
+        width: 25px;
+        height: 3px;
+        background: var(--text-primary);
+        margin: 3px 0;
+        transition: 0.3s;
+        border-radius: 2px;
+      }
+
+      /* Labs Hero Section */
+      .labs-hero {
+        background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 149, 124, 0.3)),
+          url("https://plus.unsplash.com/premium_photo-1680608979589-e9349ed066d5?q=80&w=764&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D")
+            no-repeat;
+
+        padding: 8rem 0 4rem;
+        position: relative;
+        overflow: hidden;
+        color: white;
+        background-attachment: fixed;
+        min-height: 70vh;
+        display: flex;
+        align-items: center;
+      }
+
+      .hero-bg-elements {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        pointer-events: none;
+        z-index: 1;
+      }
+
+      .floating-shape {
+        position: absolute;
+        border-radius: 50%;
+        background: rgba(0, 149, 124, 0.1);
+        animation: float 8s ease-in-out infinite;
+      }
+
+      .shape-1 {
+        width: 120px;
+        height: 120px;
+        top: 10%;
+        left: 5%;
+        animation-delay: 0s;
+      }
+
+      .shape-2 {
+        width: 80px;
+        height: 80px;
+        top: 60%;
+        right: 10%;
+        animation-delay: 2s;
+      }
+
+      .shape-3 {
+        width: 150px;
+        height: 150px;
+        bottom: 20%;
+        left: 15%;
+        animation-delay: 4s;
+      }
+
+      .network-grid {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-image: linear-gradient(
+            90deg,
+            transparent 99%,
+            rgba(0, 149, 124, 0.05) 99%
+          ),
+          linear-gradient(0deg, transparent 99%, rgba(0, 149, 124, 0.05) 99%);
+        background-size: 50px 50px;
+        animation: gridMove 20s linear infinite;
+      }
+
+      @keyframes float {
+        0%,
+        100% {
+          transform: translateY(0) rotate(0deg);
+        }
+        50% {
+          transform: translateY(-20px) rotate(180deg);
+        }
+      }
+
+      @keyframes gridMove {
+        0% {
+          background-position: 0 0;
+        }
+        100% {
+          background-position: 50px 50px;
+        }
+      }
+
+      .hero-content {
+        position: relative;
+        z-index: 2;
+        text-align: center;
+      }
+
+      .hero-badge {
+        display: inline-block;
+        background: rgba(151, 0, 48, 0.1);
+        color: white;
+        padding: 8px 20px;
+        border-radius: 25px;
+        font-size: 0.9rem;
+        font-weight: 600;
+        margin-bottom: 1.5rem;
+        border: 1px solid rgba(0, 149, 124, 0.2);
+      }
+
+      .hero-title {
+        font-size: 3.5rem;
+        font-weight: 700;
+        margin-bottom: 1.5rem;
+        background: white;
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+      }
+
+      .hero-subtitle {
+        font-size: 1.2rem;
+        color: #cfcfcf;
+        max-width: 600px;
+        margin: 0 auto 2rem;
+        line-height: 1.6;
+      }
+
+      /* Labs Showcase Section */
+      .labs-showcase {
+        padding: 6rem 0;
+        background: var(--bg-secondary);
+      }
+
+      .lab-card {
+        background: var(--bg-primary);
+        border-radius: 25px;
+        overflow: hidden;
+        box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+        transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        margin-bottom: 4rem;
+        border: 1px solid rgba(0, 149, 124, 0.1);
+        position: relative;
+      }
+
+      .lab-card::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 5px;
+        background: linear-gradient(90deg, var(--primary), var(--secondary));
+        z-index: 2;
+      }
+
+      .lab-card:hover {
+        transform: translateY(-15px);
+        box-shadow: 0 25px 50px rgba(0, 149, 124, 0.2);
+      }
+
+      .lab-header {
+        padding: 3rem 3rem 0;
+        position: relative;
+      }
+
+      .lab-badge {
+        display: inline-block;
+        background: #950000;
+        color: white;
+        padding: 8px 20px;
+        border-radius: 20px;
+        font-size: 0.9rem;
+        font-weight: 600;
+        margin-bottom: 1.5rem;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+      }
+
+      .lab-title {
+        font-size: 2.5rem;
+        margin-bottom: 1rem;
+        color: var(--text-primary);
+      }
+
+      .lab-subtitle {
+        font-size: 1.2rem;
+        color: var(--text-secondary);
+        margin-bottom: 2rem;
+        line-height: 1.6;
+      }
+
+      .lab-stats {
+        display: flex;
+        gap: 2rem;
+        margin-bottom: 2rem;
+      }
+
+      .lab-stat {
+        text-align: center;
+      }
+
+      .stat-number {
+        display: block;
+        font-size: 2rem;
+        font-weight: 700;
+        color: #e41779;
+        line-height: 1;
+      }
+
+      .stat-label {
+        font-size: 0.9rem;
+        color: var(--text-secondary);
+        text-transform: uppercase;
+        letter-spacing: 1px;
+      }
+
+      .lab-content {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 0;
+      }
+
+      .lab-text {
+        padding: 3rem;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+      }
+
+      .lab-features {
+        margin: 2rem 0;
+      }
+
+      .feature-item {
+        display: flex;
+        align-items: center;
+        margin-bottom: 1rem;
+      }
+
+      .feature-icon {
+        width: 40px;
+        height: 40px;
+        background: rgba(0, 149, 124, 0.1);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-right: 1rem;
+        color: var(--primary);
+        font-size: 1.2rem;
+      }
+
+      .feature-text {
+        color: var(--text-primary);
+        font-weight: 600;
+      }
+
+      .lab-images {
+        position: relative;
+        height: 500px;
+        overflow: hidden;
+      }
+
+      .main-image {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transition: transform 0.5s ease;
+      }
+
+      .lab-card:hover .main-image {
+        transform: scale(1.05);
+      }
+
+      .image-grid {
+        position: absolute;
+        bottom: 20px;
+        right: 20px;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 10px;
+        width: 200px;
+      }
+
+      .grid-image {
+        width: 100%;
+        height: 80px;
+        object-fit: cover;
+        border-radius: 10px;
+        border: 2px solid white;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        transition: all 0.3s ease;
+      }
+
+      .grid-image:hover {
+        transform: scale(1.1);
+        z-index: 2;
+      }
+
+      .lab-actions {
+        padding: 2rem 3rem 3rem;
+        display: flex;
+        gap: 1rem;
+      }
+
+      .btn-lab {
+        padding: 0.8rem 2rem;
+        border-radius: 25px;
+        font-weight: 600;
+        text-decoration: none;
+        transition: all 0.3s ease;
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+      }
+
+      .btn-primary {
+        background: var(--primary);
+        color: white;
+        border: none;
+      }
+
+      .btn-primary:hover {
+        background: var(--primary-dark);
+        transform: translateY(-2px);
+        box-shadow: 0 5px 15px rgba(0, 149, 124, 0.3);
+      }
+
+      .btn-outline {
+        background: transparent;
+        color: var(--primary);
+        border: 2px solid var(--primary);
+      }
+
+      .btn-outline:hover {
+        background: var(--primary);
+        color: white;
+        transform: translateY(-2px);
+      }
+
+      .cosmic-toggle {
+        width: 70px !important; /* Reduced from 140px */
+        height: 35px !important; /* Reduced from 70px */
+        transform: scale(0.7); /* Scale everything down */
+        transform-origin: center;
+      }
+
+      .toggle {
+        opacity: 0;
+        width: 0;
+        height: 0;
+      }
+
+      .slider {
+        position: absolute;
+        cursor: pointer;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: linear-gradient(45deg, #1a1a2e, #16213e);
+        border-radius: 35px;
+        transition: 0.5s;
+        transform-style: preserve-3d;
+        box-shadow: 0 0 20px rgba(0, 0, 0, 0.5),
+          inset 0 0 15px rgba(255, 255, 255, 0.05);
+        overflow: hidden;
+      }
+
+      .cosmos {
+        position: absolute;
+        inset: 0;
+        background: radial-gradient(1px 1px at 10% 10%, #fff 100%, transparent),
+          radial-gradient(1px 1px at 20% 20%, #fff 100%, transparent),
+          radial-gradient(2px 2px at 30% 30%, #fff 100%, transparent),
+          radial-gradient(1px 1px at 40% 40%, #fff 100%, transparent),
+          radial-gradient(2px 2px at 50% 50%, #fff 100%, transparent),
+          radial-gradient(1px 1px at 60% 60%, #fff 100%, transparent),
+          radial-gradient(2px 2px at 70% 70%, #fff 100%, transparent),
+          radial-gradient(1px 1px at 80% 80%, #fff 100%, transparent),
+          radial-gradient(1px 1px at 90% 90%, #fff 100%, transparent);
+        background-size: 200% 200%;
+        opacity: 0.1;
+        transition: 0.5s;
+      }
+
+      .toggle-orb {
+        height: 31px !important; /* Reduced from 62px */
+        width: 31px !important; /* Reduced from 62px */
+        left: 2px !important; /* Reduced from 4px */
+        bottom: 2px !important;
+        bottom: 4px;
+        background: linear-gradient(145deg, #ff6b6b, #4ecdc4);
+        border-radius: 50%;
+        transition: 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+        transform-style: preserve-3d;
+        z-index: 2;
+      }
+
+      .inner-orb {
+        position: absolute;
+        inset: 5px;
+        border-radius: 50%;
+        background: linear-gradient(145deg, #fff, #e6e6e6);
+        transition: 0.5s;
+        overflow: hidden;
+      }
+
+      .inner-orb::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background: repeating-conic-gradient(
+          from 0deg,
+          transparent 0deg,
+          rgba(0, 0, 0, 0.1) 10deg,
+          transparent 20deg
+        );
+        animation: patternRotate 10s linear infinite;
+      }
+
+      .ring {
+        position: absolute;
+        inset: -3px;
+        border: 2px solid rgba(255, 255, 255, 0.1);
+        border-radius: 50%;
+        transition: 0.5s;
+      }
+
+      .toggle:checked + .slider {
+        background: linear-gradient(45deg, #16213e, #1a1a2e);
+      }
+
+      .toggle:checked + .slider .toggle-orb {
+        transform: translateX(35px) rotate(360deg);
+        background: linear-gradient(145deg, #4ecdc4, #45b7af);
+      }
+
+      .toggle:checked + .slider .inner-orb {
+        background: linear-gradient(145deg, #45b7af, #3da89f);
+        transform: scale(0.9);
+      }
+
+      .toggle:checked + .slider .ring {
+        border-color: rgba(78, 205, 196, 0.3);
+        animation: ringPulse 2s infinite;
+      }
+
+      .energy-line {
+        position: absolute;
+        width: 100%;
+        height: 2px;
+        background: linear-gradient(
+          90deg,
+          transparent,
+          rgba(78, 205, 196, 0.5),
+          transparent
+        );
+        transform-origin: left;
+        opacity: 0;
+        transition: 0.5s;
+      }
+
+      .energy-line:nth-child(1) {
+        top: 20%;
+        transform: rotate(15deg);
+      }
+      .energy-line:nth-child(2) {
+        top: 50%;
+        transform: rotate(0deg);
+      }
+      .energy-line:nth-child(3) {
+        top: 80%;
+        transform: rotate(-15deg);
+      }
+
+      .toggle:checked + .slider .energy-line {
+        opacity: 1;
+        animation: energyFlow 2s linear infinite;
+      }
+
+      .particles {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+      }
+
+      .particle {
+        position: absolute;
+        width: 2px;
+        height: 2px;
+        background: #4ecdc4;
+        border-radius: 50%;
+        opacity: 0;
+      }
+
+      .toggle:checked + .slider .particle {
+        animation: particleBurst 1s ease-out infinite;
+      }
+
+      .particle:nth-child(1) {
+        left: 20%;
+        animation-delay: 0s;
+      }
+      .particle:nth-child(2) {
+        left: 40%;
+        animation-delay: 0.2s;
+      }
+      .particle:nth-child(3) {
+        left: 60%;
+        animation-delay: 0.4s;
+      }
+      .particle:nth-child(4) {
+        left: 80%;
+        animation-delay: 0.6s;
+      }
+      .particle:nth-child(5) {
+        left: 30%;
+        animation-delay: 0.8s;
+      }
+      .particle:nth-child(6) {
+        left: 70%;
+        animation-delay: 1s;
+      }
+
+      /* Анимации */
+      @keyframes ringPulse {
+        0%,
+        100% {
+          transform: scale(1);
+          opacity: 0.3;
+        }
+        50% {
+          transform: scale(1.1);
+          opacity: 0.6;
+        }
+      }
+
+      @keyframes patternRotate {
+        0% {
+          transform: rotate(0deg);
+        }
+        100% {
+          transform: rotate(360deg);
+        }
+      }
+
+      @keyframes energyFlow {
+        0% {
+          transform: scaleX(0) translateX(0);
+          opacity: 0;
+        }
+        50% {
+          transform: scaleX(1) translateX(50%);
+          opacity: 1;
+        }
+        100% {
+          transform: scaleX(0) translateX(100%);
+          opacity: 0;
+        }
+      }
+
+      @keyframes particleBurst {
+        0% {
+          transform: translate(0, 0) scale(1);
+          opacity: 1;
+        }
+        100% {
+          transform: translate(
+              calc(cos(var(--angle)) * 50px),
+              calc(sin(var(--angle)) * 50px)
+            )
+            scale(0);
+          opacity: 0;
+        }
+      }
+
+      /* Hover эффекты */
+      .slider:hover .toggle-orb {
+        filter: brightness(1.2);
+        box-shadow: 0 0 20px rgba(78, 205, 196, 0.5),
+          0 0 40px rgba(78, 205, 196, 0.3);
+      }
+
+      .slider:hover .cosmos {
+        opacity: 0.2;
+        animation: cosmosPan 20s linear infinite;
+      }
+
+      @keyframes cosmosPan {
+        0% {
+          background-position: 0% 0%;
+        }
+        100% {
+          background-position: 200% 200%;
+        }
+      }
+
+      /* Активное состояние */
+      .toggle:active + .slider .toggle-orb {
+        transform: scale(0.95);
+      }
+
+      /* 3D эффект при наведении */
+      .cosmic-toggle:hover .slider {
+        transform: rotateX(10deg) rotateY(10deg);
+      }
+
+      .cosmic-toggle:hover .toggle-orb {
+        transform: translateZ(10px);
+      }
+
+      /* Тень */
+      .toggle:checked + .slider::after {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background: radial-gradient(
+          circle at var(--x) var(--y),
+          rgba(78, 205, 196, 0.2),
+          transparent 50%
+        );
+        opacity: 0;
+        animation: glowFollow 2s linear infinite;
+      }
+
+      @keyframes glowFollow {
+        0%,
+        100% {
+          opacity: 0.2;
+        }
+        50% {
+          opacity: 0.5;
+        }
+      }
+
+      /* Labs Grid Section */
+      .labs-grid {
+        padding: 6rem 0;
+        background: var(--bg-primary);
+      }
+
+      .lab-mini-card {
+        background: var(--bg-primary);
+        border-radius: 20px;
+        padding: 2.5rem;
+        text-align: center;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        transition: all 0.4s ease;
+        height: 100%;
+        border: 1px solid rgba(0, 149, 124, 0.1);
+        position: relative;
+        overflow: hidden;
+      }
+
+      .lab-mini-card::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 5px;
+        background: linear-gradient(90deg, var(--primary), var(--secondary));
+      }
+
+      .lab-mini-card:hover {
+        transform: translateY(-10px);
+        box-shadow: 0 20px 40px rgba(0, 149, 124, 0.15);
+      }
+
+      .mini-lab-icon {
+        width: 80px;
+        height: 80px;
+        background: rgba(0, 149, 124, 0.1);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 0 auto 1.5rem;
+        color: var(--primary);
+        font-size: 2rem;
+        transition: all 0.3s ease;
+      }
+
+      .lab-mini-card:hover .mini-lab-icon {
+        background: var(--primary);
+        color: white;
+        transform: scale(1.1);
+      }
+
+      .mini-lab-title {
+        font-size: 1.5rem;
+        margin-bottom: 1rem;
+        color: var(--text-primary);
+      }
+
+      .mini-lab-desc {
+        color: var(--text-secondary);
+        line-height: 1.6;
+        margin-bottom: 1.5rem;
+      }
+
+      section {
+        overflow: hidden;
+      }
+      /* CTA Section */
+      .cta-section {
+        padding: 6rem 0;
+        background: linear-gradient(
+          135deg,
+          var(--primary) 0%,
+          var(--secondary) 100%
+        );
+        color: white;
+        text-align: center;
+        position: relative;
+        overflow: hidden;
+      }
+
+      .cta-bg {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        opacity: 0.1;
+        background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grid" width="10" height="10" patternUnits="userSpaceOnUse"><path d="M 10 0 L 0 0 0 10" fill="none" stroke="white" stroke-width="0.5"/></pattern></defs><rect width="100" height="100" fill="url(%23grid)"/></svg>');
+      }
+
+      .cta-content {
+        position: relative;
+        z-index: 2;
+      }
+
+      .cta-title {
+        font-size: 2.5rem;
+        margin-bottom: 1rem;
+      }
+
+      .cta-text {
+        font-size: 1.2rem;
+        margin-bottom: 2rem;
+        opacity: 0.9;
+        max-width: 600px;
+        margin-left: auto;
+        margin-right: auto;
+      }
+
+      .btn-cta {
+        background: white;
+        color: var(--primary);
+        border: none;
+        padding: 0.8rem 2.5rem;
+        border-radius: 30px;
+        font-weight: 600;
+        font-size: 1.1rem;
+        transition: all 0.3s ease;
+        text-decoration: none;
+        display: inline-block;
+      }
+
+      .btn-cta:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+        color: var(--primary-dark);
+      }
+
+      /* Footer */
+      @keyframes footerAnimatedBg {
+        0% {
+          background-position: 0 0;
+        }
+
+        100% {
+          background-position: -1000px 0;
+        }
+      }
+
+      .footer {
+        background-image: url(https://demo.htmlcodex.com/2716/laboratory-html-website-template/img/footer.png);
+        background-position: 0px 0px;
+        background-repeat: repeat-x;
+        animation: footerAnimatedBg 50s linear infinite;
+        background-color: #0e1b20 !important;
+      }
+
+      .footer-about {
+        margin-bottom: 2rem;
+      }
+
+      .footer-links h4,
+      .footer-newsletter h4 {
+        margin-bottom: 1.5rem;
+        color: var(--text-primary);
+      }
+
+      .footer-links a {
+        color: var(--text-secondary);
+        text-decoration: none;
+        margin-bottom: 0.5rem;
+        display: block;
+        transition: color 0.3s ease;
+      }
+      .footer-links a:hover {
+        color: white !important;
+        transform: scale(0.95);
+      }
+
+      .copyright {
+        border-top: 1px solid rgba(0, 149, 124, 0.1);
+        padding-top: 2rem;
+        margin-top: 2rem;
+        color: var(--text-secondary);
+      }
+
+      /* Mobile Responsive Styles */
+      @media (max-width: 768px) {
+        .nav-links {
+          display: none;
+          position: absolute;
+          top: 100%;
+          left: 0;
+          width: 100%;
+          background: var(--bg-primary);
+          flex-direction: column;
+          padding: 1rem 0;
+          box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .nav-links.active {
+          display: flex;
+          color: var(--text-primary);
+        }
+
+        .nav-controls {
+          display: flex;
+          align-items: center;
+          gap: 1rem;
+        }
+
+        .mobile-nav-toggle {
+          display: none;
+          flex-direction: column;
+          background: none;
+          border: none;
+          cursor: pointer;
+          padding: 5px;
+        }
+
+        .mobile-nav-toggle span {
+          width: 25px;
+          height: 3px;
+          background: var(--text-primary);
+          margin: 3px 0;
+          transition: 0.3s;
+          border-radius: 2px;
+        }
+        .mobile-nav-toggle {
+          display: flex;
+        }
+
+        .mobile-nav-toggle.active span:nth-child(1) {
+          transform: rotate(45deg) translate(5px, 5px);
+        }
+
+        .mobile-nav-toggle.active span:nth-child(2) {
+          opacity: 0;
+        }
+
+        .mobile-nav-toggle.active span:nth-child(3) {
+          transform: rotate(-45deg) translate(7px, -6px);
+        }
+
+        .hero-title {
+          font-size: 2.5rem;
+        }
+
+        .lab-content {
+          grid-template-columns: 1fr;
+        }
+
+        .lab-images {
+          height: 300px;
+        }
+
+        .lab-header,
+        .lab-text,
+        .lab-actions {
+          padding: 2rem;
+        }
+
+        .lab-stats {
+          flex-direction: column;
+          gap: 1rem;
+        }
+      }
+
+      /* Dark theme adjustments */
+      [data-theme="dark"] .lab-card,
+      [data-theme="dark"] .lab-mini-card {
+        background: var(--bg-secondary);
+        border-color: rgba(255, 255, 255, 0.1);
+      }
+
+      [data-theme="dark"] .floating-shape {
+        background: rgba(0, 149, 124, 0.05);
+      }
+
+      [data-theme="dark"] .network-grid {
+        background-image: linear-gradient(
+            90deg,
+            transparent 99%,
+            rgba(0, 149, 124, 0.03) 99%
+          ),
+          linear-gradient(0deg, transparent 99%, rgba(0, 149, 124, 0.03) 99%);
+      }
+
+      /* Advanced Back to Top Button with Progress */
+      .back-to-top {
+        position: fixed;
+        bottom: 30px;
+        right: 30px;
+        width: 50px;
+        height: 50px;
+        background: #e41779;
+        color: white;
+        border: none;
+        border-radius: 50%;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.2rem;
+        box-shadow: 0 4px 15px rgba(0, 149, 124, 0.3);
+        transition: all 0.3s ease;
+        opacity: 0;
+        visibility: hidden;
+        z-index: 999;
+        transform: translateY(20px);
+        overflow: hidden;
+      }
+
+      .back-to-top .progress-circle {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        transform: rotate(-90deg);
+      }
+
+      .back-to-top .progress-circle-background {
+        fill: none;
+        stroke: rgba(255, 255, 255, 0.2);
+        stroke-width: 2;
+      }
+
+      .back-to-top .progress-circle-fill {
+        fill: none;
+        stroke: red;
+        stroke-width: 6;
+        stroke-dasharray: 138.16; /* 2 * π * 22 */
+        stroke-dashoffset: 138.16;
+        transition: stroke-dashoffset 0.3s ease;
+      }
+
+      .back-to-top.visible {
+        opacity: 1;
+        visibility: visible;
+        transform: translateY(0);
+      }
+
+      .back-to-top:hover {
+        background: var(--primary-dark);
+        transform: translateY(-3px);
+        box-shadow: 0 6px 20px rgba(0, 149, 124, 0.4);
+      }
+
+      .back-to-top:hover .progress-circle-fill {
+        stroke: rgba(255, 255, 255, 0.8);
+      }
+
+      /* Responsive design for advanced version */
+      @media (max-width: 768px) {
+        .back-to-top {
+          bottom: 20px;
+          right: 20px;
+          width: 45px;
+          height: 45px;
+          font-size: 1.1rem;
+        }
+
+        .back-to-top .progress-circle {
+          width: 45px;
+          height: 45px;
+        }
+        .back-to-top .progress-circle-fill {
+          fill: none;
+          stroke: white;
+          stroke-width: 4;
+          stroke-dasharray: 138.16;
+          stroke-dashoffset: 138.16;
+          transition: stroke-dashoffset 0.3s ease;
+        }
+      }
+    </style>
+  </head>
+  <body data-theme="light">
+    <header>
+      <div class="container">
+        <nav class="navbar">
+          <div class="logo">
+            <img
+              src="https://www.brianknows.org/brian_logo.png"
+              alt="CAIRLab Logo"
+              class="logo-img"
+            />
+            <span class="logo-text">CAIRLab</span>
+          </div>
+
+          <ul class="nav-links ms-auto" id="navLinks">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="About.html">About</a></li>
+            <li><a href="Themes.html">Themes</a></li>
+            <li><a href="Projects.html">Projects</a></li>
+            <li><a href="Contact.html">Contact</a></li>
+            <li><a href="Scholarships.html">Apply For Scholarship</a></li>
+            <li>
+              <button
+                class="btn-involved"
+                onclick="window.location.href='Contact.html'"
+              >
+                Get Involved
+              </button>
+            </li>
+          </ul>
+          <div class="nav-controls">
+            <button
+              class="mobile-nav-toggle"
+              id="mobileNavToggle"
+              aria-label="Toggle Navigation"
+            >
+              <span></span>
+              <span></span>
+              <span></span>
+            </button>
+
+            <label class="cosmic-toggle">
+              <input class="toggle" type="checkbox" />
+              <div class="slider">
+                <div class="cosmos"></div>
+                <div class="energy-line"></div>
+                <div class="energy-line"></div>
+                <div class="energy-line"></div>
+                <div class="toggle-orb">
+                  <div class="inner-orb"></div>
+                  <div class="ring"></div>
+                </div>
+                <div class="particles">
+                  <div style="--angle: 30deg" class="particle"></div>
+                  <div style="--angle: 60deg" class="particle"></div>
+                  <div style="--angle: 90deg" class="particle"></div>
+                  <div style="--angle: 120deg" class="particle"></div>
+                  <div style="--angle: 150deg" class="particle"></div>
+                  <div style="--angle: 180deg" class="particle"></div>
+                </div>
+              </div>
+            </label>
+          </div>
+        </nav>
+      </div>
+    </header>
+
+    <!-- Labs Hero Section -->
+    <section class="labs-hero">
+      <div class="hero-bg-elements">
+        <div class="floating-shape shape-1"></div>
+        <div class="floating-shape shape-2"></div>
+        <div class="floating-shape shape-3"></div>
+        <div class="network-grid"></div>
+      </div>
+      <div class="container">
+        <div class="hero-content">
+          <div class="hero-badge" data-aos="fade-up " data-aos-delay="100">
+            INNOVATION IN ACTION
+          </div>
+          <h1 class="hero-title" data-aos="fade-up" data-aos-delay="200">
+            Advancing the Frontiers of AI and Cybersecurity
+          </h1>
+          <p class="hero-subtitle" data-aos="fade-up" data-aos-delay="300">
+            Each project represents our commitment to building secure, reliable,
+            and ethical artificial intelligence systems for real-world
+            applications.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Labs Showcase Section -->
+    <section class="labs-showcase">
+      <div class="container">
+        <!-- SecureAI Lab -->
+        <div class="lab-card" data-aos="fade-up" data-aos-delay="100">
+          <div class="lab-header" id="secureai">
+            <span class="lab-badge">SecureAI</span>
+            <h2 class="lab-title">
+              Building Trustworthy and Resilient Artificial Intelligence Systems
+            </h2>
+            <p class="lab-subtitle">
+              As AI systems become more sophisticated and integrated into our
+              daily lives, they also become attractive targets for malicious
+              actors. Traditional cybersecurity approaches are insufficient for
+              protecting AI systems, which face unique vulnerabilities including
+              model poisoning, adversarial attacks, data inference, and model
+              extraction. SecureAI addresses these emerging threats through
+              comprehensive research and development of defense mechanisms that
+              protect AI throughout its entire lifecycle.
+            </p>
+            <div class="lab-stats">
+              <div class="lab-stat">
+                <span class="stat-number">15+</span>
+                <span class="stat-label">Research Papers</span>
+              </div>
+              <div class="lab-stat">
+                <span class="stat-number">8</span>
+                <span class="stat-label">Team Members</span>
+              </div>
+              <div class="lab-stat">
+                <span class="stat-number">3</span>
+                <span class="stat-label">Sub Projects</span>
+              </div>
+            </div>
+          </div>
+          <div class="lab-content">
+            <div class="lab-text">
+              <h3>Research Focus Areas</h3>
+              <div class="lab-features">
+                <div class="feature-item">
+                  <div class="feature-icon">
+                    <i class="fas fa-shield-alt"></i>
+                  </div>
+                  <span class="feature-text"
+                    >Adversarial Machine Learning Defense</span
+                  >
+                </div>
+                <div class="feature-item">
+                  <div class="feature-icon">
+                    <i class="fas fa-robot"></i>
+                  </div>
+                  <span class="feature-text">Robust AI Model Development</span>
+                </div>
+                <div class="feature-item">
+                  <div class="feature-icon">
+                    <i class="fas fa-bug"></i>
+                  </div>
+                  <span class="feature-text"
+                    >AI System Vulnerability Analysis</span
+                  >
+                </div>
+                <div class="feature-item">
+                  <div class="feature-icon">
+                    <i class="fas fa-lock"></i>
+                  </div>
+                  <span class="feature-text"
+                    >Secure AI Deployment Frameworks</span
+                  >
+                </div>
+              </div>
+              <p>
+                The Team pioneers research in making artificial intelligence
+                systems fundamentally more secure and resilient. We develop
+                novel defense mechanisms against adversarial attacks, create
+                robust training methodologies, and establish security benchmarks
+                for AI systems across various domains.
+              </p>
+            </div>
+            <div class="lab-images">
+              <img
+                src="https://images.unsplash.com/photo-1555949963-ff9fe0c870eb?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80"
+                alt="SecureAI Research"
+                class="main-image"
+              />
+              <div class="image-grid">
+                <img
+                  src="https://images.unsplash.com/photo-1555255707-c07966088b7b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1132&q=80"
+                  alt="AI Security"
+                  class="grid-image"
+                />
+                <img
+                  src="https://images.unsplash.com/photo-1535223289827-42f1e9919769?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1074&q=80"
+                  alt="Cybersecurity"
+                  class="grid-image"
+                />
+                <img
+                  src="https://images.unsplash.com/photo-1563013544-824ae1b704d3?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1074&q=80"
+                  alt="Machine Learning"
+                  class="grid-image"
+                />
+                <img
+                  src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80"
+                  alt="Data Analysis"
+                  class="grid-image"
+                />
+              </div>
+            </div>
+          </div>
+          <div class="lab-actions">
+            <a href="Contact.html#contactForm" class="btn-lab btn-outline">
+              <i class="fas fa-users"></i> Join the team
+            </a>
+          </div>
+        </div>
+
+        <!-- AI for Food Sustainability Lab -->
+        <div class="lab-card" data-aos="fade-up" data-aos-delay="200">
+          <div class="lab-header" id="aifood">
+            <span class="lab-badge">AI for Food Sustainability</span>
+            <h2 class="lab-title">
+              Revolutionizing Agriculture Through Intelligent Technology
+            </h2>
+            <p class="lab-subtitle">
+              The AI for Food Sustainability initiative represents a
+              transformative approach to addressing one of humanity's most
+              pressing challenges: ensuring food security for a growing global
+              population while minimizing environmental impact. This
+              groundbreaking research program harnesses the power of artificial
+              intelligence, machine learning, and data analytics to create
+              smarter, more efficient, and more sustainable food systems from
+              farm to fork.
+            </p>
+            <div class="lab-stats">
+              <div class="lab-stat">
+                <span class="stat-number">12+</span>
+                <span class="stat-label">Field Studies</span>
+              </div>
+              <div class="lab-stat">
+                <span class="stat-number">6</span>
+                <span class="stat-label">Team Members</span>
+              </div>
+              <div class="lab-stat">
+                <span class="stat-number">4</span>
+                <span class="stat-label">Sub Projects</span>
+              </div>
+            </div>
+          </div>
+          <div class="lab-content">
+            <div class="lab-images">
+              <img
+                src="https://images.unsplash.com/photo-1625246333195-78d9c38ad449?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80"
+                alt="AI Agriculture"
+                class="main-image"
+              />
+              <div class="image-grid">
+                <img
+                  src="https://images.unsplash.com/photo-1574943320219-553eb213f72d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1074&q=80"
+                  alt="Smart Farming"
+                  class="grid-image"
+                />
+                <img
+                  src="https://images.unsplash.com/photo-1595341888016-a392ef81b7de?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1179&q=80"
+                  alt="Crop Monitoring"
+                  class="grid-image"
+                />
+                <img
+                  src="https://images.unsplash.com/photo-1464226184884-fa280b87c399?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80"
+                  alt="Food Supply Chain"
+                  class="grid-image"
+                />
+                <img
+                  src="https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80"
+                  alt="Sustainable Agriculture"
+                  class="grid-image"
+                />
+              </div>
+            </div>
+            <div class="lab-text">
+              <h3>Project Focus Areas</h3>
+              <div class="lab-features">
+                <div class="feature-item">
+                  <div class="feature-icon">
+                    <i class="fas fa-seedling"></i>
+                  </div>
+                  <span class="feature-text"
+                    >Precision Agriculture & Crop Monitoring</span
+                  >
+                </div>
+                <div class="feature-item">
+                  <div class="feature-icon">
+                    <i class="fas fa-tractor"></i>
+                  </div>
+                  <span class="feature-text">Automated Farming Systems</span>
+                </div>
+                <div class="feature-item">
+                  <div class="feature-icon">
+                    <i class="fas fa-apple-alt"></i>
+                  </div>
+                  <span class="feature-text"
+                    >Food Supply Chain Optimization</span
+                  >
+                </div>
+                <div class="feature-item">
+                  <div class="feature-icon">
+                    <i class="fas fa-recycle"></i>
+                  </div>
+                  <span class="feature-text">Waste Reduction Algorithms</span>
+                </div>
+              </div>
+              <p>
+                This project applies cutting-edge machine learning techniques to
+                address critical challenges in global food systems. We develop
+                AI-powered solutions for precision farming, supply chain
+                optimization, and sustainable resource management to create a
+                more food-secure future.
+              </p>
+            </div>
+          </div>
+          <div class="lab-actions">
+            <a href="Contact.html#contactForm" class="btn-lab btn-outline">
+              <i class="fas fa-users"></i> Join the team
+            </a>
+          </div>
+        </div>
+
+        <!-- SignTalk Lab -->
+        <div class="lab-card" data-aos="fade-up" data-aos-delay="300">
+          <div class="lab-header" id="signTalk">
+            <span class="lab-badge">SignTalk</span>
+            <h2 class="lab-title">
+              Bridging Communication Gaps Through AI-Powered Sign Language
+              Translation
+            </h2>
+            <p class="lab-subtitle">
+              SignTalk represents a groundbreaking initiative at the
+              intersection of artificial intelligence and accessibility,
+              dedicated to breaking down communication barriers for the deaf and
+              hard-of-hearing community. This innovative research project
+              leverages cutting-edge computer vision, natural language
+              processing, and machine learning technologies to create real-time
+              sign language translation systems that promote inclusivity and
+              empower seamless communication.
+            </p>
+            <div class="lab-stats">
+              <div class="lab-stat">
+                <span class="stat-number">8+</span>
+                <span class="stat-label">Prototypes</span>
+              </div>
+              <div class="lab-stat">
+                <span class="stat-number">7</span>
+                <span class="stat-label">Team Members</span>
+              </div>
+              <div class="lab-stat">
+                <span class="stat-number">2</span>
+                <span class="stat-label">Sub Projects</span>
+              </div>
+            </div>
+          </div>
+          <div class="lab-content">
+            <div class="lab-text">
+              <h3>Project Focus Areas</h3>
+              <div class="lab-features">
+                <div class="feature-item">
+                  <div class="feature-icon">
+                    <i class="fas fa-hands"></i>
+                  </div>
+                  <span class="feature-text"
+                    >Real-time Sign Language Recognition</span
+                  >
+                </div>
+                <div class="feature-item">
+                  <div class="feature-icon">
+                    <i class="fas fa-language"></i>
+                  </div>
+                  <span class="feature-text"
+                    >Multi-language Sign Translation</span
+                  >
+                </div>
+                <div class="feature-item">
+                  <div class="feature-icon">
+                    <i class="fas fa-video"></i>
+                  </div>
+                  <span class="feature-text"
+                    >Computer Vision for Gesture Analysis</span
+                  >
+                </div>
+                <div class="feature-item">
+                  <div class="feature-icon">
+                    <i class="fas fa-robot"></i>
+                  </div>
+                  <span class="feature-text"
+                    >Avatar-based Sign Language Synthesis</span
+                  >
+                </div>
+              </div>
+              <p>
+                The team is dedicated to creating innovative AI solutions that
+                bridge communication gaps for the deaf and hard-of-hearing
+                community. Our research combines computer vision, natural
+                language processing, and human-computer interaction to develop
+                accurate, real-time sign language translation systems that work
+                across different sign languages and contexts.
+              </p>
+            </div>
+            <div class="lab-images">
+              <img
+                src="https://images.unsplash.com/photo-1587825140708-dfaf72ae4b04?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80"
+                alt="Sign Language AI"
+                class="main-image"
+              />
+              <div class="image-grid">
+                <img
+                  src="https://images.unsplash.com/photo-1551650975-87deedd944c3?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1074&q=80"
+                  alt="Gesture Recognition"
+                  class="grid-image"
+                />
+                <img
+                  src="https://images.unsplash.com/photo-1611224923853-80b023f02d71?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1139&q=80"
+                  alt="AI Communication"
+                  class="grid-image"
+                />
+                <img
+                  src="https://images.unsplash.com/photo-1551650975-87deedd944c3?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1074&q=80"
+                  alt="Accessibility Technology"
+                  class="grid-image"
+                />
+                <img
+                  src="https://images.unsplash.com/photo-1581094794329-c8112a89af12?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80"
+                  alt="Human-Computer Interaction"
+                  class="grid-image"
+                />
+              </div>
+            </div>
+          </div>
+          <div class="lab-actions">
+            <a href="Contact.html#contactForm" class="btn-lab btn-outline">
+              <i class="fas fa-users"></i> Join the team
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Labs Grid Section -->
+    <section class="labs-grid">
+      <div class="container">
+        <div class="text-center mb-5" data-aos="fade-up">
+          <h5 class="text-primary mb-2">Lab Capabilities</h5>
+          <h2 class="display-5 mb-4">Cross-Lab Research Initiatives</h2>
+          <p class="lead">
+            Our labs collaborate on interdisciplinary projects that push the
+            boundaries of AI research
+          </p>
+        </div>
+
+        <div class="row g-4">
+          <div
+            class="col-lg-4 col-md-6"
+            data-aos="fade-up"
+            data-aos-delay="100"
+          >
+            <div class="lab-mini-card">
+              <div class="mini-lab-icon">
+                <i class="fas fa-brain"></i>
+              </div>
+              <h3 class="mini-lab-title">Federated Learning</h3>
+              <p class="mini-lab-desc">
+                Developing privacy-preserving AI models that can learn from
+                decentralized data sources without compromising sensitive
+                information.
+              </p>
+            </div>
+          </div>
+
+          <div
+            class="col-lg-4 col-md-6"
+            data-aos="fade-up"
+            data-aos-delay="200"
+          >
+            <div class="lab-mini-card">
+              <div class="mini-lab-icon">
+                <i class="fas fa-chart-line"></i>
+              </div>
+              <h3 class="mini-lab-title">Explainable AI</h3>
+              <p class="mini-lab-desc">
+                Creating transparent AI systems that provide clear explanations
+                for their decisions, enhancing trust and accountability.
+              </p>
+            </div>
+          </div>
+
+          <div
+            class="col-lg-4 col-md-6"
+            data-aos="fade-up"
+            data-aos-delay="300"
+          >
+            <div class="lab-mini-card">
+              <div class="mini-lab-icon">
+                <i class="fas fa-shield-alt"></i>
+              </div>
+              <h3 class="mini-lab-title">AI Ethics & Governance</h3>
+              <p class="mini-lab-desc">
+                Establishing frameworks for ethical AI development and
+                deployment, ensuring responsible innovation across all our
+                research areas.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta-section">
+      <div class="cta-bg"></div>
+      <div class="container">
+        <div class="cta-content" data-aos="fade-up">
+          <h2 class="cta-title">Interested in Our Research?</h2>
+          <p class="cta-text">
+            Whether you're a student, researcher, or industry partner, there are
+            numerous opportunities to collaborate with our labs and contribute
+            to groundbreaking AI research.
+          </p>
+          <a href="contact.html" class="btn-cta">Get Involved Today</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer bg-dark text-white py-5">
+      <div class="container py-5">
+        <div class="row g-5">
+          <div class="col-lg-4 col-md-6">
+            <div class="footer-about">
+              <div class="d-flex align-items-center mb-3">
+                <img
+                  src="https://www.brianknows.org/brian_logo.png"
+                  alt="CAIRLab Logo"
+                  class="logo-img me-2"
+                />
+                <h4 class="text-white m-0">CAIRLab</h4>
+              </div>
+              <p class="mb-4">
+                Advancing AI for Cybersecurity Innovation through cutting-edge
+                research and development.
+              </p>
+              <div class="d-flex pt-2">
+                <a href="#" class="btn btn-outline-light btn-square me-2"
+                  ><i class="fab fa-twitter"></i
+                ></a>
+                <a href="#" class="btn btn-outline-light btn-square me-2"
+                  ><i class="fab fa-facebook-f"></i
+                ></a>
+                <a href="#" class="btn btn-outline-light btn-square me-2"
+                  ><i class="fab fa-linkedin-in"></i
+                ></a>
+                <a href="#" class="btn btn-outline-light btn-square"
+                  ><i class="fab fa-instagram"></i
+                ></a>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-4 col-md-6">
+            <div class="footer-links">
+              <h4 class="text-white mb-4">Quick Links</h4>
+              <div class="d-flex flex-column">
+                <a href="index.html" class="text-white-50 mb-2"
+                  ><i class="fa fa-angle-right me-2"></i>Home</a
+                >
+                <a href="About.html" class="text-white-50 mb-2"
+                  ><i class="fa fa-angle-right me-2"></i>About</a
+                >
+                <a href="Themes.html" class="text-white-50 mb-2"
+                  ><i class="fa fa-angle-right me-2"></i>Themes</a
+                >
+                <a href="Project.html" class="text-white-50 mb-2"
+                  ><i class="fa fa-angle-right me-2"></i>Projects</a
+                >
+                <a href="Contact.html" class="text-white-50 mb-2"
+                  ><i class="fa fa-angle-right me-2"></i>Contact</a
+                >
+                <a href="Scholarships.html" class="text-white-50"
+                  ><i class="fa fa-angle-right me-2"></i>Apply For
+                  Scholarship</a
+                >
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-4 col-md-6">
+            <div class="footer-newsletter">
+              <h4 class="text-white mb-4">Newsletter</h4>
+              <p class="text-white-50 mb-4">
+                Subscribe to our newsletter for the latest research updates and
+                news.
+              </p>
+              <div class="position-relative">
+                <input
+                  type="text"
+                  class="form-control border-0 w-100 py-3 ps-4 pe-5"
+                  placeholder="Your email"
+                />
+                <button
+                  type="button"
+                  class="btn btn-primary py-2 px-3 position-absolute top-0 end-0 mt-2 me-2"
+                >
+                  Sign Up
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="container">
+        <div class="copyright">
+          <div class="row">
+            <div class="col-md-6 text-center text-md-start">
+              <p class="mb-0">
+                &copy; <span id="currentYear"></span> CAIRLab. All Rights
+                Reserved.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+    <script>
+      // Initialize AOS
+      AOS.init({
+        duration: 1000,
+        once: false,
+        mirror: false,
+      });
+
+      // Mobile navigation toggle
+      const mobileNavToggle = document.getElementById("mobileNavToggle");
+      const navLinks = document.getElementById("navLinks");
+
+      mobileNavToggle.addEventListener("click", () => {
+        mobileNavToggle.classList.toggle("active");
+        navLinks.classList.toggle("active");
+      });
+
+      // Close mobile menu when clicking on a link
+      const navItems = document.querySelectorAll(".nav-links a");
+      navItems.forEach((item) => {
+        item.addEventListener("click", () => {
+          mobileNavToggle.classList.remove("active");
+          navLinks.classList.remove("active");
+        });
+      });
+
+      // Theme toggle functionality
+      const themeToggle = document.querySelector(".cosmic-toggle .toggle");
+      const body = document.body;
+
+      // Check for saved theme preference or default to light
+      const currentTheme = localStorage.getItem("theme") || "light";
+      body.setAttribute("data-theme", currentTheme);
+
+      // Set initial checkbox state
+      if (currentTheme === "dark") {
+        themeToggle.checked = true;
+      }
+
+      themeToggle.addEventListener("change", () => {
+        const newTheme = themeToggle.checked ? "dark" : "light";
+        body.setAttribute("data-theme", newTheme);
+        localStorage.setItem("theme", newTheme);
+      });
+
+      // Set current year in footer
+      document.getElementById("currentYear").textContent =
+        new Date().getFullYear();
+    </script>
+
+    <script>
+      // Set active navigation link based on current page
+      function setActiveNavLink() {
+        const currentPage =
+          window.location.pathname.split("/").pop() || "index.html";
+        const navLinks = document.querySelectorAll(".nav-links a");
+
+        navLinks.forEach((link) => {
+          const linkHref = link.getAttribute("href");
+          // Remove active class from all links
+          link.classList.remove("active");
+
+          // Check if this link matches current page
+          if (linkHref === currentPage) {
+            link.classList.add("active");
+          }
+
+          // Special case for index.html (home page)
+          if (
+            currentPage === "" ||
+            (currentPage === "index.html" && linkHref === "index.html")
+          ) {
+            link.classList.add("active");
+          }
+        });
+      }
+
+      // Call when page loads
+      document.addEventListener("DOMContentLoaded", setActiveNavLink);
+    </script>
+
+    <script>
+      // Advanced Back to Top Button with Progress
+      function initBackToTop() {
+        const backToTopButton = document.getElementById("backToTop");
+        const progressFill = document.querySelector(".progress-circle-fill");
+        const circumference = 138.16; // 2 * π * 22
+
+        // Show/hide button and update progress
+        function toggleBackToTop() {
+          const scrollTop = window.pageYOffset;
+          const docHeight =
+            document.documentElement.scrollHeight - window.innerHeight;
+          const scrollProgress = (scrollTop / docHeight) * 100;
+
+          if (scrollTop > 300) {
+            backToTopButton.classList.add("visible");
+            // Update progress circle
+            const offset =
+              circumference - (scrollProgress / 100) * circumference;
+            progressFill.style.strokeDashoffset = offset;
+          } else {
+            backToTopButton.classList.remove("visible");
+            progressFill.style.strokeDashoffset = circumference;
+          }
+        }
+
+        // Scroll to top function
+        function scrollToTop() {
+          backToTopButton.classList.add("bounce");
+
+          window.scrollTo({
+            top: 0,
+            behavior: "smooth",
+          });
+
+          setTimeout(() => {
+            backToTopButton.classList.remove("bounce");
+          }, 1000);
+        }
+
+        // Event listeners
+        window.addEventListener("scroll", toggleBackToTop);
+        backToTopButton.addEventListener("click", scrollToTop);
+
+        // Initial check
+        toggleBackToTop();
+      }
+
+      document.addEventListener("DOMContentLoaded", initBackToTop);
+    </script>
+
+    <!-- Advanced Back to Top Button with Progress -->
+    <button id="backToTop" class="back-to-top" aria-label="Back to top">
+      <svg class="progress-circle" width="50" height="50">
+        <circle
+          class="progress-circle-background"
+          cx="25"
+          cy="25"
+          r="22"
+        ></circle>
+        <circle class="progress-circle-fill" cx="25" cy="25" r="22"></circle>
+      </svg>
+      <i class="fas fa-chevron-up"></i>
+    </button>
+  </body>
+</html>
